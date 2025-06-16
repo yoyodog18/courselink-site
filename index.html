@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CourseLink Coming Soon</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e90ff, #00ff99);
+      color: #1a1a1a;
+      padding: 2rem;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #ffffff;
+      margin: 0;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+      animation: pulseText 2s infinite;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #f0f0f0;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      width: 100%;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      background: #f0faff;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #222;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .premium-banner {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: gold;
+      color: black;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #e0e0e0;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+    @keyframes pulseText {
+      0% { text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
+      50% { text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
+      100% { text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
+    }
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      animation: floatBubble 10s infinite ease-in;
+    }
+    @keyframes floatBubble {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CourseLink</h1>
+    <p>Something awesome is on the way — stay tuned for new features and tools.</p>
+  </header>
+
+  <section class="card-grid">
+    <div class="card">
+      <div class="premium-banner" style="background: crimson; color: white;">Currently Unavailable</div>
+      <h2>🕹️ G.A.M.E.S</h2>
+      <p>Compete, score, and collaborate in browser-based environments built for performance and fun.</p>
+    </div>
+    <div class="card">
+      <div class="premium-banner" style="background: crimson; color: white;">Currently Unavailable</div>
+      <h2>🎬 Movie Access</h2>
+      <p>Stream curated films, documentaries, and educational content directly from your dashboard.</p>
+    </div>
+    <div class="card">
+      <div class="premium-banner" style="bottom: 10px; right: 10px; top: auto; background: gold; color: black;">Premium</div>
+      <div class="premium-banner" style="top: -10px; right: -10px; background: crimson; color: white;">Currently Unavailable</div>
+      <h2>🌐 Virtual Browser</h2>
+      <p>Secure, cloud-powered web browsing from any device — designed for productivity and privacy.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 CourseLink — All rights reserved.
+  </footer>
+
+  <script>
+    for (let i = 0; i < 30; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${6 + Math.random() * 6}s`;
+      document.body.appendChild(bubble);
+    }
+  </script>
+</body>
+</html>
