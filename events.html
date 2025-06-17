@@ -23,7 +23,7 @@
 
     .tile-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 1.5rem;
       width: 100%;
       max-width: 1000px;
@@ -33,6 +33,8 @@
       background: #ffffff11;
       border-radius: 12px;
       padding: 1rem;
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -47,15 +49,57 @@
     .tile img {
       width: 100%;
       border-radius: 10px;
+      transition: opacity 0.3s ease;
+    }
+
+    .tile:hover img {
+      opacity: 0.3;
+    }
+
+    .hover-buttons {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tile:hover .hover-buttons {
+      opacity: 1;
+    }
+
+    .hover-buttons a {
+      background: #007bff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+
+    .hover-buttons a:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
   <h1>🎯 Experience Library</h1>
   <div class="tile-grid">
-    <a class="tile" href="moto3xm.html">
+    <div class="tile">
       <img src="https://upload.wikimedia.org/wikipedia/en/e/e7/Moto_X3M_icon.png" alt="Moto X3M" />
-    </a>
+      <div class="hover-buttons">
+        <a href="moto3xm.html" target="_blank">Play</a>
+        <a href="https://drive.google.com/file/d/1FqU-rYtW0avUynP0TA8VBExArKNEH2vP/view" target="_blank">Offline</a>
+      </div>
+    </div>
     <!-- Duplicate the above block for more interactive experiences -->
   </div>
 </body>
