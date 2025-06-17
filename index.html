@@ -120,6 +120,21 @@
         opacity: 0;
       }
     }
+    .event-button {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
+    }
+    .event-button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -146,6 +161,11 @@
       <p>Secure, cloud-powered web browsing from any device — designed for productivity and privacy.</p>
     </div>
   </section>
+
+  <!-- 🚀 Game Button Below the Cards -->
+  <div style="margin-top: 2rem; z-index: 1; position: relative;">
+    <a href="events.html" class="event-button">🎮 View Game Library</a>
+  </div>
 
   <footer>
     &copy; 2025 CourseLink — All rights reserved.
