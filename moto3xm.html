@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CourseLink Session</title>
+  <title>CourseLink Interactive</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
       background-color: #000;
       color: #fff;
+      font-family: sans-serif;
     }
 
     #popup {
@@ -21,8 +21,8 @@
       justify-content: center;
       align-items: center;
       padding: 2rem;
-      text-align: center;
       z-index: 10;
+      text-align: center;
     }
 
     #popup h2 {
@@ -44,13 +44,13 @@
     }
 
     button {
-      padding: 0.6rem 1.2rem;
+      padding: 0.6rem 1.4rem;
       font-size: 1rem;
-      border: none;
-      border-radius: 6px;
       background-color: #007bff;
-      color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      color: white;
     }
 
     iframe {
@@ -64,37 +64,37 @@
 <body>
   <div id="popup">
     <h2>Choose How to Launch</h2>
-    <p>Some school monitoring tools like Hapara detect repeated keys like arrow keys or WASD.  
-    If your school uses something similar, click “Play Offline” to avoid detection.</p>
+    <p>
+      Some school monitoring tools (like Hapara) detect repeated arrow key inputs.
+      If your school uses this software, download the offline version to avoid detection.
+    </p>
     <div class="buttons">
-      <button id="playBtn">Play in Browser</button>
-      <button id="downloadBtn">Play Offline</button>
+      <button id="play">Play in Browser</button>
+      <button id="offline">Play Offline</button>
     </div>
   </div>
 
-  <iframe id="gameFrame"></iframe>
+  <iframe id="game" src=""></iframe>
 
   <script>
-    const playBtn = document.getElementById('playBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
     const popup = document.getElementById('popup');
-    const gameFrame = document.getElementById('gameFrame');
+    const iframe = document.getElementById('game');
 
-    playBtn.addEventListener('click', () => {
+    document.getElementById('play').onclick = () => {
       popup.style.display = 'none';
-      gameFrame.src = "https://bobydob.github.io/JSEngine/build/m3m/";
-      gameFrame.style.display = 'block';
-    });
+      iframe.src = "https://bobydob.github.io/JSEngine/build/m3m/";
+      iframe.style.display = 'block';
+    };
 
-    downloadBtn.addEventListener('click', () => {
-      const html = `<!DOCTYPE html>
+    document.getElementById('offline').onclick = () => {
+      const offlineHTML = `
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" />
 </head>
 <body>
   <div id="content"></div>
@@ -107,17 +107,17 @@
   <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/bluebird.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js"></script>
 </body>
-</html>`;
+</html>
+      `.trim();
 
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
+      const blob = new Blob([offlineHTML], { type: "text/html" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
       link.download = "Moto_X3M_Offline.html";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    });
+    };
   </script>
 </body>
 </html>
