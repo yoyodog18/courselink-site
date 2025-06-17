@@ -59,6 +59,7 @@
       position: relative;
       cursor: pointer;
       z-index: 1;
+      text-decoration: none;
     }
     .card:hover {
       transform: translateY(-5px) scale(1.02);
@@ -76,10 +77,28 @@
     }
     .premium-banner {
       position: absolute;
-      top: -10px;
-      right: -10px;
       background: gold;
       color: black;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    .top-right {
+      top: -10px;
+      right: -10px;
+    }
+    .bottom-right {
+      bottom: 10px;
+      right: 10px;
+    }
+    .unavailable-banner {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: crimson;
+      color: white;
       padding: 5px 10px;
       font-size: 0.8rem;
       font-weight: bold;
@@ -120,21 +139,6 @@
         opacity: 0;
       }
     }
-    .event-button {
-      display: inline-block;
-      background-color: #007bff;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s ease;
-    }
-    .event-button:hover {
-      background-color: #0056b3;
-    }
   </style>
 </head>
 <body>
@@ -144,28 +148,23 @@
   </header>
 
   <section class="card-grid">
-    <div class="card">
-      <div class="premium-banner" style="background: crimson; color: white;">Currently Unavailable</div>
+    <a href="events.html" class="card">
+      <div class="premium-banner top-right">Limited Availability</div>
       <h2>🄹 G.A.M.E.S</h2>
       <p>Compete, score, and collaborate in browser-based environments built for performance and fun.</p>
-    </div>
+    </a>
     <div class="card">
-      <div class="premium-banner" style="background: crimson; color: white;">Currently Unavailable</div>
+      <div class="unavailable-banner">Currently Unavailable</div>
       <h2>🎮 Movie Access</h2>
       <p>Stream curated films, documentaries, and educational content directly from your dashboard.</p>
     </div>
     <div class="card">
-      <div class="premium-banner" style="bottom: 10px; right: 10px; top: auto; background: gold; color: black;">Premium</div>
-      <div class="premium-banner" style="top: -10px; right: -10px; background: crimson; color: white;">Currently Unavailable</div>
+      <div class="premium-banner bottom-right">Premium</div>
+      <div class="unavailable-banner">Currently Unavailable</div>
       <h2>🌐 Virtual Browser</h2>
       <p>Secure, cloud-powered web browsing from any device — designed for productivity and privacy.</p>
     </div>
   </section>
-
-  <!-- 🚀 G.a.m.e Button Below the Cards -->
-  <div style="margin-top: 2rem; z-index: 1; position: relative;">
-    <a href="events.html" class="event-button">🎮 View G.a.m.e Library</a>
-  </div>
 
   <footer>
     &copy; 2025 CourseLink — All rights reserved.
