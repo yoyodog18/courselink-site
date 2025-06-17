@@ -68,29 +68,28 @@
   <div id="optionPopup">
     <h2>Choose How to Play</h2>
     <p>
-      Some school monitoring systems (like Hapara) can detect repetitive keyboard inputs such as arrow keys or WASD.
-      If your school uses tools like these, we recommend using the offline version to avoid being flagged or blocked.
+      Some school monitoring systems (like Hapara) can detect repetitive keyboard inputs like arrow keys.
+      If your school uses software like that, use the offline version to avoid being flagged or blocked.
     </p>
     <div class="button-group">
-      <button id="playBrowser">Play in Browser</button>
-      <button id="downloadOffline">Play Offline</button>
+      <button onclick="playInBrowser()">Play in Browser</button>
+      <button onclick="downloadOffline()">Play Offline</button>
     </div>
   </div>
 
   <!-- Game -->
-  <iframe id="gameFrame" src=""></iframe>
+  <iframe id="gameFrame"></iframe>
 
   <script>
-    const iframe = document.getElementById('gameFrame');
-    const popup = document.getElementById('optionPopup');
-
-    document.getElementById('playBrowser').onclick = () => {
+    function playInBrowser() {
+      const popup = document.getElementById('optionPopup');
+      const iframe = document.getElementById('gameFrame');
       popup.style.display = 'none';
       iframe.src = "https://bobydob.github.io/JSEngine/build/m3m/";
       iframe.style.display = 'block';
-    };
+    }
 
-    document.getElementById('downloadOffline').onclick = () => {
+    function downloadOffline() {
       const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,8 +97,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
   <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css"
-    type="text/css" />
+    href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" />
 </head>
 <body>
   <div id="content"></div>
@@ -122,7 +120,7 @@
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    };
+    }
   </script>
 </body>
 </html>
