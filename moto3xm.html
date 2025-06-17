@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Loading...</title>
+  <title>Interactive Session</title>
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css"
     type="text/css" />
@@ -12,27 +12,150 @@
       margin: 0;
       background-color: #000;
       overflow: hidden;
+      font-family: sans-serif;
     }
     #loader {
       color: white;
-      font-family: sans-serif;
       font-size: 1.2rem;
       text-align: center;
       margin-top: 20%;
     }
+    #remapPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #remapPopup h2 {
+      margin-bottom: 0.5rem;
+    }
+    #remapPopup p {
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 320px;
+      margin-bottom: 1.5rem;
+    }
+    #remapPopup button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      background: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .bind-row {
+      margin: 0.25rem 0;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Remap UI -->
+  <div id="remapPopup">
+    <h2>🛡️ Input Setup</h2>
+    <p>
+      Some monitoring tools detect repeated use of default keys like arrow keys or WASD.  
+      To reduce detection risk, choose alternative keys for movement.
+    </p>
+    <div class="bind-row">Up: <span id="keyUp">[Press key]</span></div>
+    <div class="bind-row">Down: <span id="keyDown">[Press key]</span></div>
+    <div class="bind-row">Left: <span id="keyLeft">[Press key]</span></div>
+    <div class="bind-row">Right: <span id="keyRight">[Press key]</span></div>
+    <button id="startButton" disabled>Start Session</button>
+  </div>
+
+  <!-- Experience Container -->
   <div id="content"></div>
   <div id="orientation"></div>
   <div id="loader">Loading...</div>
 
-  <!-- External libraries and the engine -->
+  <!-- External Libraries -->
   <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/nape.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/jquery-3.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/easeljs-0.8.2.combined.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/bluebird.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js"></script>
+
+  <!-- Key Remapping Script -->
+  <script>
+    const bindings = { up: null, down: null, left: null, right: null };
+    const display = {
+      up: document.getElementById('keyUp'),
+      down: document.getElementById('keyDown'),
+      left: document.getElementById('keyLeft'),
+      right: document.getElementById('keyRight'),
+    };
+    const startButton = document.getElementById('startButton');
+    const popup = document.getElementById('remapPopup');
+    const bindOrder = ['up', 'down', 'left', 'right'];
+    let step = 0;
+
+    function waitForKey() {
+      const dir = bindOrder[step];
+      display[dir].textContent = '[Press key]';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (popup.style.display !== 'none' && step < bindOrder.length) {
+        const dir = bindOrder[step];
+        bindings[dir] = e.key.toLowerCase();
+        display[dir].textContent = e.key.toUpperCase();
+        step++;
+        if (step < bindOrder.length) {
+          waitForKey();
+        } else {
+          startButton.disabled = false;
+        }
+        e.preventDefault();
+      }
+    });
+
+    waitForKey();
+
+    startButton.onclick = () => {
+      popup.style.display = 'none';
+
+      // Remap user keys to arrow key events
+      document.addEventListener('keydown', (e) => {
+        const remap = {
+          [bindings.up]: 'ArrowUp',
+          [bindings.down]: 'ArrowDown',
+          [bindings.left]: 'ArrowLeft',
+          [bindings.right]: 'ArrowRight'
+        };
+        const fakeKey = remap[e.key.toLowerCase()];
+        if (fakeKey) {
+          const newEvt = new KeyboardEvent('keydown', { key: fakeKey });
+          document.dispatchEvent(newEvt);
+          e.preventDefault();
+        }
+      });
+
+      document.addEventListener('keyup', (e) => {
+        const remap = {
+          [bindings.up]: 'ArrowUp',
+          [bindings.down]: 'ArrowDown',
+          [bindings.left]: 'ArrowLeft',
+          [bindings.right]: 'ArrowRight'
+        };
+        const fakeKey = remap[e.key.toLowerCase()];
+        if (fakeKey) {
+          const newEvt = new KeyboardEvent('keyup', { key: fakeKey });
+          document.dispatchEvent(newEvt);
+          e.preventDefault();
+        }
+      });
+    };
+  </script>
 </body>
 </html>
