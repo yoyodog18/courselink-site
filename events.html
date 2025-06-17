@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Library - CourseLink</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #001f3f, #0074D9);
+      color: white;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .game-icon {
+      background: #ffffff11;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+
+    .game-icon:hover {
+      transform: scale(1.05);
+      background: #ffffff22;
+    }
+
+    .game-icon img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Game Library</h1>
+  <div class="game-grid">
+    <a class="game-icon" href="moto.html">
+      <img src="https://upload.wikimedia.org/wikipedia/en/e/e7/Moto_X3M_icon.png" alt="Moto X3M" />
+    </a>
+    <!-- You can clone the above block for more games -->
+  </div>
+</body>
+</html>
