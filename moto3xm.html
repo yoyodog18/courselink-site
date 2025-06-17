@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Session</title>
+  <title>CourseLink Session</title>
   <style>
     body {
       margin: 0;
-      background-color: #000;
-      color: white;
       font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
     }
 
-    #optionPopup {
+    #popup {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.95);
@@ -20,24 +20,23 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 10;
       padding: 2rem;
       text-align: center;
+      z-index: 10;
     }
 
-    #optionPopup h2 {
+    #popup h2 {
       margin-bottom: 1rem;
-      font-size: 1.6rem;
     }
 
-    #optionPopup p {
-      font-size: 0.95rem;
-      color: #ccc;
+    #popup p {
+      font-size: 1rem;
       max-width: 400px;
+      color: #ccc;
       margin-bottom: 2rem;
     }
 
-    .button-group {
+    .buttons {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
@@ -45,52 +44,50 @@
     }
 
     button {
-      padding: 0.6rem 1.4rem;
+      padding: 0.6rem 1.2rem;
       font-size: 1rem;
-      background: #007bff;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 6px;
+      background-color: #007bff;
       color: white;
+      cursor: pointer;
     }
 
     iframe {
-      border: none;
       width: 100vw;
       height: 100vh;
+      border: none;
       display: none;
     }
   </style>
 </head>
 <body>
-
-  <!-- Startup Options -->
-  <div id="optionPopup">
-    <h2>Choose How to Play</h2>
-    <p>
-      Some school monitoring systems (like Hapara) can detect repetitive keyboard inputs like arrow keys.
-      If your school uses software like that, use the offline version to avoid being flagged or blocked.
-    </p>
-    <div class="button-group">
-      <button onclick="playInBrowser()">Play in Browser</button>
-      <button onclick="downloadOffline()">Play Offline</button>
+  <div id="popup">
+    <h2>Choose How to Launch</h2>
+    <p>Some school monitoring tools like Hapara detect repeated keys like arrow keys or WASD.  
+    If your school uses something similar, click “Play Offline” to avoid detection.</p>
+    <div class="buttons">
+      <button id="playBtn">Play in Browser</button>
+      <button id="downloadBtn">Play Offline</button>
     </div>
   </div>
 
-  <!-- Game -->
   <iframe id="gameFrame"></iframe>
 
   <script>
-    function playInBrowser() {
-      const popup = document.getElementById('optionPopup');
-      const iframe = document.getElementById('gameFrame');
-      popup.style.display = 'none';
-      iframe.src = "https://bobydob.github.io/JSEngine/build/m3m/";
-      iframe.style.display = 'block';
-    }
+    const playBtn = document.getElementById('playBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const popup = document.getElementById('popup');
+    const gameFrame = document.getElementById('gameFrame');
 
-    function downloadOffline() {
-      const htmlContent = `<!DOCTYPE html>
+    playBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+      gameFrame.src = "https://bobydob.github.io/JSEngine/build/m3m/";
+      gameFrame.style.display = 'block';
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -112,15 +109,15 @@
 </body>
 </html>`;
 
-      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const blob = new Blob([html], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Moto_X3M_Offline.html";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = "Moto_X3M_Offline.html";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   </script>
 </body>
 </html>
