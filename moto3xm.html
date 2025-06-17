@@ -23,6 +23,15 @@
       padding: 2rem;
       z-index: 10;
       text-align: center;
+      /* Added for smooth disappearance */
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #popup.hidden {
+      opacity: 0;
+      visibility: hidden;
     }
 
     #popup h2 {
@@ -51,11 +60,11 @@
       border-radius: 5px;
       cursor: pointer;
       color: white;
-      transition: background-color 0.2s ease; /* Added for smoother hover */
+      transition: background-color 0.2s ease;
     }
 
     button:hover {
-        background-color: #0056b3; /* Darken button on hover */
+        background-color: #0056b3;
     }
 
     iframe {
@@ -65,13 +74,14 @@
       display: none;
     }
 
-    #offline-message { /* New style for the offline download message */
+    /* This message is no longer needed with the Google Drive link */
+    /* #offline-message {
         color: #fff;
         margin-top: 1.5rem;
         font-size: 0.9rem;
         max-width: 450px;
         line-height: 1.4;
-        display: none; /* Hidden by default */
+        display: none;
     }
 
     #offline-message a {
@@ -81,7 +91,7 @@
 
     #offline-message a:hover {
         text-decoration: underline;
-    }
+    } */
   </style>
 </head>
 <body>
@@ -89,88 +99,40 @@
     <h2>Choose How to Launch</h2>
     <p>
       Some school monitoring tools (like Hapara) detect repeated arrow key inputs.
-      If your school uses this software, download the offline version to avoid detection.
+      If your school uses this software, consider using the direct link version to avoid detection.
     </p>
     <div class="buttons">
       <button id="play">Play in Browser</button>
-      <button id="offline">Download Offline Version</button>
+      <button id="external-link">Launch External Link</button>
     </div>
-    <p id="offline-message">
-        Your download should start automatically. If it doesn't, please <a id="manual-download-link" href="#" download="Moto_X3M_Offline.html">click here to download manually</a>.
-        Once downloaded, open the `Moto_X3M_Offline.html` file in your browser.
-    </p>
-  </div>
+    </div>
 
   <iframe id="game" src=""></iframe>
 
   <script>
     const popup = document.getElementById('popup');
     const iframe = document.getElementById('game');
-    const offlineMessage = document.getElementById('offline-message');
-    const manualDownloadLink = document.getElementById('manual-download-link');
+    const playButton = document.getElementById('play');
+    const externalLinkButton = document.getElementById('external-link'); // Renamed for clarity
 
-    document.getElementById('play').onclick = () => {
-      popup.style.display = 'none';
+    // Function to hide the popup
+    const hidePopup = () => {
+      popup.classList.add('hidden');
+      // Optional: Remove the popup from the DOM entirely after transition
+      // setTimeout(() => popup.remove(), 500); // Matches transition duration
+    };
+
+    playButton.onclick = () => {
+      hidePopup(); // Hide the popup
       iframe.src = "https://bobydob.github.io/JSEngine/build/m3m/";
       iframe.style.display = 'block';
     };
 
-    document.getElementById('offline').onclick = () => {
-      // The "offline" version of a game with external scripts needs ALL its assets to be local.
-      // Simply creating an HTML file with remote script tags won't work if the user is truly offline.
-      // For a truly offline experience, you would need to download all linked JS/CSS files
-      // and serve them from relative paths.
-
-      // For demonstration, this example still generates an HTML file, but a user must have
-      // an internet connection when opening the downloaded file for it to load external scripts.
-      // A more robust "offline" solution would involve bundling all assets.
-
-      const offlineHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-  <title>Moto X3M Offline</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" />
-</head>
-<body>
-  <div id="content"></div>
-  <div id="orientation"></div>
-  <div id="loader">Loading ...</div>
-  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/nape.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/jquery-3.1.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/easeljs-0.8.2.combined.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/bluebird.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js"></script>
-</body>
-</html>
-      `.trim();
-
-      const blob = new Blob([offlineHTML], { type: "text/html" });
-      const url = URL.createObjectURL(blob);
-
-      // Create a temporary link element for downloading
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "Moto_X3M_Offline.html";
-
-      // Set the manual download link's href for redundancy
-      manualDownloadLink.href = url;
-
-      // Programmatically click the link to trigger download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Show the message to the user
-      offlineMessage.style.display = 'block';
-
-      // Revoke the object URL after a short delay to allow download to start
-      // This cleans up memory; URL.revokeObjectURL is important for performance.
-      setTimeout(() => URL.revokeObjectURL(url), 100);
+    externalLinkButton.onclick = () => {
+      hidePopup(); // Hide the popup
+      // Open the Google Drive link in a new tab
+      window.open("https://drive.google.com/file/d/1FqU-rYtW0avUynP0TA8VBExArKNEH2vP/view", "_blank");
+      // Keep the iframe hidden if you don't want to load anything else on this page
     };
   </script>
 </body>
