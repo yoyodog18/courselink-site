@@ -51,6 +51,11 @@
       border-radius: 5px;
       cursor: pointer;
       color: white;
+      transition: background-color 0.2s ease; /* Added for smoother hover */
+    }
+
+    button:hover {
+        background-color: #0056b3; /* Darken button on hover */
     }
 
     iframe {
@@ -58,6 +63,24 @@
       height: 100vh;
       border: none;
       display: none;
+    }
+
+    #offline-message { /* New style for the offline download message */
+        color: #fff;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        max-width: 450px;
+        line-height: 1.4;
+        display: none; /* Hidden by default */
+    }
+
+    #offline-message a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    #offline-message a:hover {
+        text-decoration: underline;
     }
   </style>
 </head>
@@ -70,8 +93,12 @@
     </p>
     <div class="buttons">
       <button id="play">Play in Browser</button>
-      <button id="offline">Play Offline</button>
+      <button id="offline">Download Offline Version</button>
     </div>
+    <p id="offline-message">
+        Your download should start automatically. If it doesn't, please <a id="manual-download-link" href="#" download="Moto_X3M_Offline.html">click here to download manually</a>.
+        Once downloaded, open the `Moto_X3M_Offline.html` file in your browser.
+    </p>
   </div>
 
   <iframe id="game" src=""></iframe>
@@ -79,6 +106,8 @@
   <script>
     const popup = document.getElementById('popup');
     const iframe = document.getElementById('game');
+    const offlineMessage = document.getElementById('offline-message');
+    const manualDownloadLink = document.getElementById('manual-download-link');
 
     document.getElementById('play').onclick = () => {
       popup.style.display = 'none';
@@ -87,6 +116,15 @@
     };
 
     document.getElementById('offline').onclick = () => {
+      // The "offline" version of a game with external scripts needs ALL its assets to be local.
+      // Simply creating an HTML file with remote script tags won't work if the user is truly offline.
+      // For a truly offline experience, you would need to download all linked JS/CSS files
+      // and serve them from relative paths.
+
+      // For demonstration, this example still generates an HTML file, but a user must have
+      // an internet connection when opening the downloaded file for it to load external scripts.
+      // A more robust "offline" solution would involve bundling all assets.
+
       const offlineHTML = `
 <!DOCTYPE html>
 <html lang="en">
@@ -94,6 +132,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <title>Moto X3M Offline</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" />
 </head>
 <body>
@@ -111,12 +150,27 @@
       `.trim();
 
       const blob = new Blob([offlineHTML], { type: "text/html" });
+      const url = URL.createObjectURL(blob);
+
+      // Create a temporary link element for downloading
       const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
+      link.href = url;
       link.download = "Moto_X3M_Offline.html";
+
+      // Set the manual download link's href for redundancy
+      manualDownloadLink.href = url;
+
+      // Programmatically click the link to trigger download
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      // Show the message to the user
+      offlineMessage.style.display = 'block';
+
+      // Revoke the object URL after a short delay to allow download to start
+      // This cleans up memory; URL.revokeObjectURL is important for performance.
+      setTimeout(() => URL.revokeObjectURL(url), 100);
     };
   </script>
 </body>
