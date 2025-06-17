@@ -15,12 +15,12 @@
     #remapPopup {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 10;
     }
 
     #remapPopup h2 {
@@ -60,15 +60,17 @@
       border: none;
       width: 100vw;
       height: 100vh;
+      display: none;
     }
   </style>
 </head>
 <body>
 
+  <!-- Key Remap Popup -->
   <div id="remapPopup">
     <h2>🛡️ Input Setup</h2>
     <p>
-      Monitoring tools may detect arrow key or WASD patterns. Select alternative movement keys below.
+      Some monitoring software flags repeated inputs like arrow keys. Choose alternate keys for movement.
     </p>
     <div class="bind-row">Up: <span id="keyUp">[Press key]</span></div>
     <div class="bind-row">Down: <span id="keyDown">[Press key]</span></div>
@@ -77,11 +79,12 @@
 
     <div class="button-group">
       <button id="startButton" disabled>Start Session</button>
-      <button onclick="downloadOffline()">Play Offline</button>
+      <button id="downloadButton">Play Offline</button>
     </div>
   </div>
 
-  <iframe id="gameFrame" src="" style="display:none;"></iframe>
+  <!-- Game Container -->
+  <iframe id="gameFrame" src=""></iframe>
 
   <script>
     const bindings = { up: null, down: null, left: null, right: null };
@@ -94,12 +97,18 @@
     const bindOrder = ['up', 'down', 'left', 'right'];
     let step = 0;
 
+    const startBtn = document.getElementById('startButton');
+    const popup = document.getElementById('remapPopup');
+    const iframe = document.getElementById('gameFrame');
+    const downloadBtn = document.getElementById('downloadButton');
+
     function waitForKey() {
       const dir = bindOrder[step];
       display[dir].textContent = '[Press key]';
     }
 
     document.addEventListener('keydown', function handleBind(e) {
+      if (popup.style.display === 'none') return;
       if (step >= bindOrder.length) return;
       const dir = bindOrder[step];
       bindings[dir] = e.key.toLowerCase();
@@ -108,7 +117,7 @@
       if (step < bindOrder.length) {
         waitForKey();
       } else {
-        document.getElementById('startButton').disabled = false;
+        startBtn.disabled = false;
         document.removeEventListener('keydown', handleBind);
       }
       e.preventDefault();
@@ -116,9 +125,8 @@
 
     waitForKey();
 
-    document.getElementById('startButton').onclick = () => {
-      document.getElementById('remapPopup').style.display = 'none';
-      const iframe = document.getElementById('gameFrame');
+    startBtn.onclick = () => {
+      popup.style.display = 'none';
       iframe.src = "https://bobydob.github.io/JSEngine/build/m3m/";
       iframe.style.display = 'block';
 
@@ -146,7 +154,7 @@
       });
     };
 
-    function downloadOffline() {
+    downloadBtn.onclick = () => {
       const content = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,8 +162,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
   <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css"
-    type="text/css" />
+    href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" />
 </head>
 <body>
   <div id="content"></div>
@@ -169,8 +176,7 @@
   <script src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js"></script>
 </body>
 </html>`;
-
-      const blob = new Blob([content], { type: "text/html" });
+      const blob = new Blob([content], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -178,7 +184,7 @@
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    }
+    };
   </script>
 </body>
 </html>
