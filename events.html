@@ -23,22 +23,19 @@
 
     .tile-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
       width: 100%;
       max-width: 1000px;
     }
 
     .tile {
+      position: relative;
       background: #ffffff11;
       border-radius: 12px;
-      padding: 1rem;
-      position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s;
+      height: 200px;
+      transition: transform 0.3s ease;
     }
 
     .tile:hover {
@@ -48,31 +45,45 @@
 
     .tile img {
       width: 100%;
-      border-radius: 10px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
       transition: opacity 0.3s ease;
     }
 
     .tile:hover img {
-      opacity: 0.3;
+      opacity: 0.2;
     }
 
-    .hover-buttons {
+    .hover-info {
       position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      align-items: center;
       justify-content: center;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      align-items: center;
+      text-align: center;
       opacity: 0;
+      padding: 1rem;
       transition: opacity 0.3s ease;
     }
 
-    .tile:hover .hover-buttons {
+    .tile:hover .hover-info {
       opacity: 1;
+    }
+
+    .hover-info p {
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      max-width: 90%;
+    }
+
+    .hover-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .hover-buttons a {
@@ -94,13 +105,18 @@
   <h1>🎯 Experience Library</h1>
   <div class="tile-grid">
     <div class="tile">
-      <img src="https://upload.wikimedia.org/wikipedia/en/e/e7/Moto_X3M_icon.png" alt="Moto X3M" />
-      <div class="hover-buttons">
-        <a href="moto3xm.html" target="_blank">Play</a>
-        <a href="https://drive.google.com/file/d/1FqU-rYtW0avUynP0TA8VBExArKNEH2vP/view" target="_blank">Offline</a>
+      <img src="/mnt/data/9d0af1ea-5e36-4e3c-a73e-462c3e5a9712.png" alt="Moto X3M" />
+      <div class="hover-info">
+        <p>
+          Some school monitoring tools like <strong>Hapara</strong> can detect repeated key inputs.
+          Use the offline version to avoid detection.
+        </p>
+        <div class="hover-buttons">
+          <a href="moto3xm.html" target="_blank">Play</a>
+          <a href="https://drive.google.com/file/d/1FqU-rYtW0avUynP0TA8VBExArKNEH2vP/view" target="_blank">Offline</a>
+        </div>
       </div>
     </div>
-    <!-- Duplicate the above block for more interactive experiences -->
   </div>
 </body>
 </html>
