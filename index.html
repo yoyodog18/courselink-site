@@ -20,9 +20,16 @@
       justify-content: flex-start;
       min-height: 100vh;
     }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+    }
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
     }
     header h1 {
       font-size: 3rem;
@@ -51,6 +58,7 @@
       transition: all 0.3s ease;
       position: relative;
       cursor: pointer;
+      z-index: 1;
     }
     .card:hover {
       transform: translateY(-5px) scale(1.02);
@@ -84,6 +92,8 @@
       font-size: 0.9rem;
       color: #e0e0e0;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
     }
     @keyframes pulseText {
       0% { text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
@@ -98,6 +108,7 @@
       background: rgba(255, 255, 255, 0.4);
       border-radius: 50%;
       animation: floatBubble 10s infinite ease-in;
+      z-index: 0;
     }
     @keyframes floatBubble {
       0% {
@@ -120,12 +131,12 @@
   <section class="card-grid">
     <div class="card">
       <div class="premium-banner" style="background: crimson; color: white;">Currently Unavailable</div>
-      <h2>🕹️ G.A.M.E.S</h2>
+      <h2>🄹 G.A.M.E.S</h2>
       <p>Compete, score, and collaborate in browser-based environments built for performance and fun.</p>
     </div>
     <div class="card">
       <div class="premium-banner" style="background: crimson; color: white;">Currently Unavailable</div>
-      <h2>🎬 Movie Access</h2>
+      <h2>🎮 Movie Access</h2>
       <p>Stream curated films, documentaries, and educational content directly from your dashboard.</p>
     </div>
     <div class="card">
