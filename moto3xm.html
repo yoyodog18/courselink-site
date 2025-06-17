@@ -1,159 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CourseLink Interactive</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <title>Moto X3M</title>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css"
+    type="text/css" />
   <style>
     body {
       margin: 0;
       background-color: #000;
-      color: #fff;
-      font-family: sans-serif;
-    }
-
-    #popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.95);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      z-index: 10;
-      text-align: center;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    #popup.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    #popup h2 {
-      margin-bottom: 1rem;
-    }
-
-    #popup p {
-      font-size: 1rem;
-      max-width: 400px;
-      color: #ccc;
-      margin-bottom: 2rem;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    button {
-      padding: 0.6rem 1.4rem;
-      font-size: 1rem;
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: white;
-      transition: background-color 0.2s ease;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    iframe {
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      display: none;
+      overflow: hidden;
     }
   </style>
 </head>
+
 <body>
-  <div id="popup">
-    <h2>Choose How to Launch</h2>
-    <p>
-      Some school monitoring tools (like Hapara) detect repeated arrow key inputs.
-      If your school uses this software, consider using the direct link version to avoid detection.
-    </p>
-    <div class="buttons">
-      <button id="play">Play in Browser</button>
-      <button id="external-link">Launch External Link</button>
-    </div>
-  </div>
+  <div id="content"></div>
+  <div id="orientation"></div>
+  <div id="loader">Loading ...</div>
 
-  <iframe id="game" src=""></iframe>
-
-  <script>
-    const popup = document.getElementById('popup');
-    const iframe = document.getElementById('game');
-    const playButton = document.getElementById('play');
-    const externalLinkButton = document.getElementById('external-link');
-
-    // Function to hide the popup
-    const hidePopup = () => {
-      popup.classList.add('hidden');
-      // Optional: Remove the popup from the DOM entirely after transition
-      // setTimeout(() => popup.remove(), 500); // Matches transition duration
-    };
-
-    // HTML content for the iframe, exactly as you provided
-    const gameIframeContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css"
-		type="text/css" />
-</head>
-<body>
-	<div id="content"></div>
-	<div id="orientation"></div>
-	<div id="loader">Loading ...</div>
-	<script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-	<script type="text/javascript"
-		src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/nape.min.js">
-		var nape ="nape.min.js";
-	</script>
-	<script type="text/javascript"
-		src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/jquery-3.1.1.min.js">
-	</script>
-	<script type="text/javascript"
-		src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/easeljs-0.8.2.combined.js">
-	</script>
-	<script type="text/javascript"
-		src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/bluebird.min.js">
-	</script>
-	<script type="text/javascript"
-		src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js">
-	</script>
-	<script src=""></script>
-</body>
-</html>
-    `.trim();
-
-    playButton.onclick = () => {
-      hidePopup(); // Hide the popup
-      // Create a Data URL from the HTML string
-      const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(gameIframeContent);
-      iframe.src = dataUrl; // Set the data URL as the iframe's source
-      iframe.style.display = 'block'; // Make the iframe visible
-    };
-
-    externalLinkButton.onclick = () => {
-      hidePopup(); // Hide the popup
-      // Open the Google Drive link in a new tab
-      window.open("https://drive.google.com/file/d/1FqU-rYtW0avUynP0TA8VBExArKNEH2vP/view", "_blank");
-      // Keep the iframe hidden if you don't want to load anything else on this page
-    };
-  </script>
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/nape.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/jquery-3.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/easeljs-0.8.2.combined.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/bluebird.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js"></script>
 </body>
 </html>
