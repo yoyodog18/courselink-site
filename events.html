@@ -132,5 +132,42 @@
       </div>
     </div>
   </div>
+  <div id="popup-guide">
+  <p><strong>Some school monitoring tools like Hapara detect repeated key inputs. Use the offline version to avoid detection.</strong><br>
+  1. Click <em>OFFLINE</em> once the drive link opens<br>
+  2. Press download in the top right corner<br>
+  3. Double click the downloaded HTML file, or while in chrome, press <em>Ctrl+O</em> then select the downloaded file
+    tab.</p>
+  <button onclick="document.getElementById('popup-guide').style.display='none'">Got it!</button>
+</div>
+
+<style>
+  #popup-guide {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1e90ff;
+    color: white;
+    padding: 1rem;
+    font-family: sans-serif;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    text-align: center;
+  }
+  #popup-guide button {
+    margin-top: 0.5rem;
+    background: #fff;
+    color: #1e90ff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #popup-guide button:hover {
+    background: #e0e0e0;
+  }
+</style>
 </body>
 </html>
