@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SourceFlix - Browse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Reset and Body Styles */
+        body {
+            margin: 0;
+            font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Simulating Netflix font */
+            background-color: #141414; /* Netflix dark background */
+            color: #E5E5E5; /* Netflix light gray text */
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4%; /* Matches Netflix padding */
+            height: 68px; /* Standard Netflix nav height */
+            background-color: #141414; /* Same as body to blend */
+            position: fixed; /* Stays at the top */
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Space between logo and links */
+        }
+
+        .navbar-logo {
+            color: #E50914; /* Netflix red */
+            font-size: 1.8em;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 18px; /* Space between nav links */
+        }
+
+        .navbar-nav li a {
+            color: #E5E5E5;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav li a:hover {
+            color: #b3b3b3; /* Lighter on hover */
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Space between icons */
+        }
+
+        .navbar-icon {
+            color: #E5E5E5;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: #303030; /* Placeholder for profile icon */
+            cursor: pointer;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            padding-top: 88px; /* Offset for fixed navbar */
+            padding-bottom: 50px;
+        }
+
+        .content-row {
+            margin-bottom: 40px; /* Space between rows */
+        }
+
+        .row-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #E5E5E5;
+            margin-left: 4%; /* Matches navbar padding */
+            margin-bottom: 15px;
+        }
+
+        .row-posters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 10px; /* Space between posters */
+            padding: 0 4%; /* Matches row title padding */
+        }
+
+        /* Poster Card Link Styling */
+        .poster-card-link {
+            text-decoration: none; /* Remove underline from link */
+            color: inherit; /* Inherit text color */
+            display: block; /* Make the entire link block-level */
+            position: relative; /* For absolute positioning of badge/overlay */
+            background-color: #303030; /* Placeholder background */
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .poster-card-link:hover {
+            transform: scale(1.05); /* Slight enlargement on hover */
+            z-index: 10; /* Bring hovered item to front */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .poster-card-link img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .poster-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            color: #fff;
+            padding: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-align: center;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+        }
+
+        .poster-card-link:hover .poster-card-overlay {
+            opacity: 1; /* Show on hover */
+        }
+
+        .badge-n {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: #E50914;
+            color: white;
+            font-size: 0.7em;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 2px;
+            z-index: 5; /* Ensure it's above the image */
+        }
+
+        /* Responsive Adjustments (Basic) */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none; /* Hide main nav links on smaller screens */
+            }
+
+            .row-posters {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller cards */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-logo {
+                font-size: 1.5em;
+            }
+
+            .row-posters {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Even smaller cards */
+            }
+
+            .row-title {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="navbar-logo">SOURCEFLIX</a>
+        </div>
+        <div class="navbar-right">
+            <i class="fas fa-search navbar-icon"></i>
+            <i class="fas fa-bell navbar-icon"></i>
+            <div class="profile-dropdown"></div> </div>
+    </nav>
+
+    <div class="main-content">
+
+        <div class="content-row">
+            <h2 class="row-title">Movie Websites</h2>
+            <div class="row-posters">
+                <a href="#https://boredflix.com/" class="poster-card-link">
+                    <span class="badge-n">N</span>
+                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+1" alt="TV Show 1">
+                    <div class="poster-card-overlay">
+                        boredflix
+                    </div>
+                </a>
+                <a href="https://www.tapemotion.com/en" class="poster-card-link">
+                    <span class="badge-n">N</span>
+                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+2" alt="TV Show 2">
+                    <div class="poster-card-overlay">Tape motion</div>
+                </a>
+                <a href="http://4ktvonline.site/en/movie-popular" class="poster-card-link">
+                    <span class="badge-n">N</span>
+                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+3" alt="TV Show 3">
+                    <div class="poster-card-overlay">4k tv online</div>
+                </a>
+                <a href="https://www.hydraflix.vip/home/" class="poster-card-link">
+                    <span class="badge-n">N</span>
+                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+4" alt="TV Show 4">
+                    <div class="poster-card-overlay">Hydraflix</div>
+                </a>
+               <!-- <a href="#tv-show-5-details" class="poster-card-link">
+                    <span class="badge-n">N</span>
+                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+5" alt="TV Show 5">
+                    <div class="poster-card-overlay">TV Show Title 5</div>
+                </a>
+                <a href="#tv-show-6-details" class="poster-card-link">
+                    <span class="badge-n">N</span>
+                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+6" alt="TV Show 6">
+                    <div class="poster-card-overlay">TV Show Title 6</div>
+                </a> -->
+                </div>
+        </div>
+
+      
+
+    </div>
+
+</body>
+</html>
