@@ -1,194 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CourseLink</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1e90ff, #00ff99);
-      color: #1a1a1a;
-      padding: 2rem;
-      overflow-x: hidden;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
-    }
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-      position: relative;
-      z-index: 1;
-    }
-    header h1 {
-      font-size: 3rem;
-      color: #ffffff;
-      margin: 0;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-      animation: pulseText 2s infinite;
-    }
-    header p {
-      font-size: 1.2rem;
-      color: #f0f0f0;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      max-width: 1000px;
-      width: 100%;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      position: relative;
-      cursor: pointer;
-      z-index: 1;
-      text-decoration: none;
-    }
-    .card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      background: #f0faff;
-    }
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      color: #222;
-    }
-    .card p {
-      font-size: 0.95rem;
-      color: #555;
-    }
-    .premium-banner {
-      position: absolute;
-      background: gold;
-      color: black;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-    .ava-banner {
-      position: absolute;
-      background: green;
-      color: black;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-    .top-right {
-      top: -10px;
-      right: -10px;
-    }
-    .bottom-right {
-      bottom: 10px;
-      right: 10px;
-    }
-    .unavailable-banner {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: crimson;
-      color: white;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-    footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #e0e0e0;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes pulseText {
-      0% { text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
-      50% { text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
-      100% { text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
-    }
-    .bubble {
-      position: absolute;
-      bottom: -100px;
-      width: 20px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      animation: floatBubble 10s infinite ease-in;
-      z-index: 0;
-    }
-    @keyframes floatBubble {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-      }
-    }
-  </style>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404. That's an error.</title>
+    <style>
+        /* Basic reset for consistent styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body and HTML to mimic Google's 404 page */
+        html, body {
+            height: 100%; /* Ensure full height for centering */
+            font-family: Arial, sans-serif; /* Google's standard font */
+            background-color: #fff; /* White background */
+            color: #222; /* Dark text color */
+            display: flex; /* Use flexbox for centering content */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            overflow: hidden; /* Prevent any scrollbars */
+        }
+
+        /* Main wrapper to hold the content and the robot image side-by-side */
+        .wrapper {
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+            justify-content: center; /* Center horizontally */
+            max-width: 900px; /* Adjust max-width to accommodate logo, text, and robot */
+            width: 100%; /* Make wrapper fluid */
+            padding: 20px;
+        }
+
+        /* Container for the 404 message and logo */
+        .content-container {
+            text-align: left; /* Align text to the left as per the image */
+            flex-shrink: 0; /* Prevent content from shrinking */
+            padding-right: 50px; /* Space between text and robot */
+            min-width: 250px; /* Ensure content doesn't get too small */
+        }
+
+        /* Styling for the Google logo container, now also the invisible link */
+        .google-logo-link {
+            display: inline-block; /* Allows width/height to be set and text/image inside */
+            position: relative; /* For absolute positioning of the pseudo-element link */
+            margin-bottom: 30px; /* Space below the logo */
+            cursor: pointer; /* Indicate it's clickable */
+            line-height: 0; /* Remove extra space below image if any */
+            /* The actual invisible link will be a pseudo-element inside this */
+        }
+
+        .google-logo-link img {
+            width: 150px; /* Standard size for Google logo on 404 page */
+            max-width: 100%; /* Ensure logo scales down if container is smaller */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Styling for the main error heading */
+        h1 {
+            font-size: 200%; /* Larger font size as seen in the image */
+            color: #000; /* Black color for "404. That's an error." */
+            font-weight: normal; /* Normal weight as in the image */
+            margin-bottom: 20px; /* Space below the heading */
+            word-wrap: break-word; /* Prevent long words from overflowing */
+        }
+
+        /* Styling for the paragraph text */
+        p {
+            font-size: 100%; /* Adjust font size to match image */
+            line-height: 1.6; /* Good line spacing for readability */
+            margin-bottom: 10px;
+            word-wrap: break-word; /* Prevent long words from overflowing */
+        }
+
+        /* Styling for the robot illustration */
+        .robot-image {
+            flex-shrink: 0; /* Prevent robot image from shrinking */
+            margin-left: 50px; /* Ensure space from the text */
+            flex-grow: 1; /* Allow robot image to grow if there's extra space */
+            display: flex; /* Use flex to center the image if needed */
+            justify-content: center; /* Center the image within its flex container */
+            align-items: center;
+            min-width: 150px; /* Ensure robot image doesn't get too small */
+        }
+
+        .robot-image img {
+            width: 250px; /* Adjust size to match the image */
+            max-width: 100%; /* Ensure image scales down if container is smaller */
+            height: auto; /* Maintain aspect ratio */
+            /* Placeholder for the broken robot image. */
+        }
+
+        /* The invisible link, now applied as a pseudo-element over the logo */
+        .google-logo-link::after {
+            content: ''; /* Required for pseudo-elements */
+            position: absolute; /* Position relative to .google-logo-link */
+            top: 0;
+            left: 0;
+            width: 100%; /* Cover the entire parent (.google-logo-link) */
+            height: 100%; /* Cover the entire parent (.google-logo-link) */
+            z-index: 1; /* Above the image, but below other interactive elements if any */
+            /* No background or border needed as it's invisible */
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column; /* Stack elements vertically on smaller screens */
+                padding: 15px;
+            }
+
+            .content-container {
+                padding-right: 0; /* Remove right padding when stacked */
+                padding-bottom: 30px; /* Add bottom padding */
+                text-align: center; /* Center text on smaller screens */
+            }
+
+            .robot-image {
+                margin-left: 0; /* Remove left margin when stacked */
+                margin-top: 20px; /* Add space above robot image */
+            }
+
+            .google-logo-link img {
+                width: 100px; /* Slightly smaller logo on mobile */
+            }
+
+            h1 {
+                font-size: 150%; /* Adjust font size for mobile */
+            }
+
+            p {
+                font-size: 90%; /* Adjust font size for mobile */
+            }
+
+            .robot-image img {
+                width: 180px; /* Smaller robot image on mobile */
+            }
+        }
+
+        /* Further reduce sizes for very small screens */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 130%;
+            }
+            p {
+                font-size: 85%;
+            }
+            .google-logo-link img {
+                width: 80px;
+            }
+            .robot-image img {
+                width: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>CourseLink</h1>
-    <p>Something awesome is on the way — stay tuned for new features and tools.</p>
-  </header>
-
-  <section class="card-grid">
-    <a href="event.html" class="card">
-      <div class="ava-banner top-right">Available</div>
-      <h2> 🎮G.A.M.E.S</h2>
-      <p>Compete, score, and collaborate in browser-based environments built for performance and fun.</p>
-    </a>
-    <!-- <div class="card">
-      <div class="unavailable-banner">Currently Unavailable</div>
-      <h2>🎮 Movie Access</h2>
-      <p>Stream curated films, documentaries, and educational content directly from your dashboard.</p>
+    <div class="wrapper">
+        <div class="content-container">
+            <!-- The invisible link is now around the Google logo -->
+            <a href="event.html" class="google-logo-link" aria-label="Invisible link to event details via Google logo">
+                <img src="data:image/jpeg;base64,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" alt="Google">
+            </a>
+            <h1>404. That's an error.</h1>
+            <p>The requested URL was not found on this server. That’s all we know.</p>
+        </div>
+        <div class="robot-image">
+            <!-- Placeholder for the broken robot image. -->
+            <img src="https://placehold.co/250x200/cccccc/333333?text=Broken+Robot" alt="Broken Robot">
+        </div>
     </div>
-    <div class="card">
-      <div class="premium-banner bottom-right">Premium</div>
-      <div class="unavailable-banner">Currently Unavailable</div>
-      <h2>🌐 Virtual Browser</h2>
-      <p>Secure, cloud-powered web browsing from any device — designed for productivity and privacy.</p>
-    </div> -->
-  </section>
-
-  <footer>
-    &copy; 2025 CourseLink — All rights reserved.
-  </footer>
-
-  <script>
-    for (let i = 0; i < 30; i++) {
-      const bubble = document.createElement('div');
-      bubble.classList.add('bubble');
-      bubble.style.left = `${Math.random() * 100}%`;
-      bubble.style.animationDuration = `${6 + Math.random() * 6}s`;
-      document.body.appendChild(bubble);
-    }
-  </script>
 </body>
 </html>
