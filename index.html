@@ -207,8 +207,10 @@
             font-weight: 600;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            /* MODIFIED: Changed to inline-flex for alignment */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-primary {
@@ -234,7 +236,6 @@
             transform: translateY(-2px);
         }
         
-        /* ADDED - a new style for the Virtual Browser button */
         .btn-tertiary {
             background: linear-gradient(45deg, #4158D0, #C850C0);
             color: white;
@@ -266,58 +267,33 @@
         }
 
         /* --- Media Queries for Responsiveness --- */
-
-        /* 404 Page Media Queries */
         @media (max-width: 768px) {
             .wrapper-404 {
                 flex-direction: column;
                 padding: 15px;
             }
-
             .content-container-404 {
                 padding-right: 0;
                 padding-bottom: 30px;
                 text-align: center;
             }
-
             .robot-image-404 {
                 margin-left: 0;
                 margin-top: 20px;
             }
-
-            .google-logo-link img {
-                width: 100px;
-            }
-
-            h1.error-heading {
-                font-size: 150%;
-            }
-
-            p.error-text {
-                font-size: 90%;
-            }
-
-            .robot-image-404 img {
-                width: 180px;
-            }
+            .google-logo-link img { width: 100px; }
+            h1.error-heading { font-size: 150%; }
+            p.error-text { font-size: 90%; }
+            .robot-image-404 img { width: 180px; }
         }
 
         @media (max-width: 480px) {
-            h1.error-heading {
-                font-size: 130%;
-            }
-            p.error-text {
-                font-size: 85%;
-            }
-            .google-logo-link img {
-                width: 80px;
-            }
-            .robot-image-404 img {
-                width: 150px;
-            }
+            h1.error-heading { font-size: 130%; }
+            p.error-text { font-size: 85%; }
+            .google-logo-link img { width: 80px; }
+            .robot-image-404 img { width: 150px; }
         }
 
-        /* CourseLink Page Media Queries */
         @media (min-width: 768px) {
             .container-courselink {
                 flex-direction: row;
@@ -327,9 +303,7 @@
         }
 
         @media (max-width: 767px) {
-            .container-courselink {
-                padding: 1.5rem;
-            }
+            .container-courselink { padding: 1.5rem; }
             .left-section-courselink {
                 align-items: center;
                 text-align: center;
@@ -338,12 +312,7 @@
                 order: -1;
                 margin-bottom: 2rem;
             }
-            .btn-secondary {
-                margin-left: 0;
-                margin-top: 1rem;
-            }
-             /* ADDED - ensure new button stacks correctly on mobile */
-            .btn-tertiary {
+            .btn-secondary, .btn-tertiary {
                 margin-left: 0;
                 margin-top: 1rem;
             }
@@ -352,12 +321,8 @@
                 align-items: center;
                 padding-bottom: 1rem;
             }
-            .navbar-nav {
-                margin-top: 1rem;
-            }
-            .navbar-nav a {
-                margin: 0.5rem 0;
-            }
+            .navbar-nav { margin-top: 1rem; }
+            .navbar-nav a { margin: 0.5rem 0; }
         }
     </style>
 </head>
@@ -396,10 +361,17 @@
                 <p class="text-lg md:text-xl text-gray-600 mb-6 max-w-lg">
                     Please use this website responsibly and at appropriate times. You are solely responsible for your use of this site.
                 </p>
-                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
                     <a href="event.html" class="btn btn-primary">G.A.M.E library</a>
                     <a href="movies.html" class="btn btn-secondary">M.o.v.i.e directory</a>
-                    <a href="https://browsers.courselink.org" class="btn btn-tertiary" target="_blank">Virtual Browser</a>
+                    
+                    <a href="https://browsers.courselink.org" class="btn btn-tertiary" target="_blank">
+                        <span>Virtual Browser</span>
+                        <span class="ml-2 px-2 py-0.5 text-xs font-bold text-gray-800 bg-yellow-400 rounded-full uppercase tracking-wider">
+                            Premium
+                        </span>
+                    </a>
+
                 </div>
             </div>
 
@@ -416,17 +388,13 @@
         function showCourseLink(event) {
             // Prevent the default link behavior (e.g., navigating to #)
             event.preventDefault();
-
             const page404 = document.getElementById('page-404');
             const pageCourselink = document.getElementById('page-courselink');
             const body = document.body;
-
             // Hide the 404 page
             page404.style.display = 'none';
-
             // Show the CourseLink page
             pageCourselink.style.display = 'flex'; // Use flex to maintain layout
-
             // Apply the CourseLink specific background to the body
             body.classList.add('courselink-active');
         }
