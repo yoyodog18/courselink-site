@@ -207,10 +207,10 @@
             font-weight: 600;
             transition: all 0.3s ease;
             text-decoration: none;
-            /* MODIFIED: Changed to inline-flex for alignment */
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            text-align: center; /* Ensure text is centered inside button */
         }
 
         .btn-primary {
@@ -228,7 +228,6 @@
             background: rgba(0, 0, 0, 0.1);
             color: #333;
             border: 1px solid rgba(0, 0, 0, 0.2);
-            margin-left: 1rem;
         }
 
         .btn-secondary:hover {
@@ -240,7 +239,6 @@
             background: linear-gradient(45deg, #4158D0, #C850C0);
             color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-left: 1rem;
         }
 
         .btn-tertiary:hover {
@@ -312,10 +310,6 @@
                 order: -1;
                 margin-bottom: 2rem;
             }
-            .btn-secondary, .btn-tertiary {
-                margin-left: 0;
-                margin-top: 1rem;
-            }
             .navbar {
                 flex-direction: column;
                 align-items: center;
@@ -361,17 +355,18 @@
                 <p class="text-lg md:text-xl text-gray-600 mb-6 max-w-lg">
                     Please use this website responsibly and at appropriate times. You are solely responsible for your use of this site.
                 </p>
-                <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+                <!-- MODIFIED: Updated button container for better responsiveness -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
                     <a href="courses.html" class="btn btn-primary">G.A.M.E library</a>
                     <a href="movies.html" class="btn btn-secondary">M.o.v.i.e directory</a>
-                    
+                    <!-- ADDED: New trial button -->
+                    <a href="https://app.apponfly.com/trial" class="btn btn-secondary" target="_blank">20 min trial virtual computer</a>
                     <a href="https://browsers.courselink.org" class="btn btn-tertiary" target="_blank">
                         <span>Virtual Browser</span>
                         <span class="ml-2 px-2 py-0.5 text-xs font-bold text-gray-800 bg-yellow-400 rounded-full uppercase tracking-wider">
                             Premium
                         </span>
                     </a>
-
                 </div>
             </div>
 
