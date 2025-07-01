@@ -4,253 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SourceFlix - Browse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* General Reset and Body Styles */
+        /* Custom font */
         body {
-            margin: 0;
-            font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Simulating Netflix font */
-            background-color: #141414; /* Netflix dark background */
-            color: #E5E5E5; /* Netflix light gray text */
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-
-        /* Top Navigation Bar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4%; /* Matches Netflix padding */
-            height: 68px; /* Standard Netflix nav height */
-            background-color: #141414; /* Same as body to blend */
-            position: fixed; /* Stays at the top */
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        .navbar-left {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* Space between logo and links */
-        }
-
-        .navbar-logo {
-            color: #E50914; /* Netflix red */
-            font-size: 1.8em;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .navbar-nav {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 18px; /* Space between nav links */
-        }
-
-        .navbar-nav li a {
-            color: #E5E5E5;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-nav li a:hover {
-            color: #b3b3b3; /* Lighter on hover */
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* Space between icons */
-        }
-
-        .navbar-icon {
-            color: #E5E5E5;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        .profile-dropdown {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            background-color: #303030; /* Placeholder for profile icon */
-            cursor: pointer;
-        }
-
-        /* Main Content Area */
-        .main-content {
-            padding-top: 88px; /* Offset for fixed navbar */
-            padding-bottom: 50px;
-        }
-
-        .content-row {
-            margin-bottom: 40px; /* Space between rows */
-        }
-
-        .row-title {
-            font-size: 1.6em;
-            font-weight: 700;
-            color: #E5E5E5;
-            margin-left: 4%; /* Matches navbar padding */
-            margin-bottom: 15px;
-        }
-
-        .row-posters {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
-            gap: 10px; /* Space between posters */
-            padding: 0 4%; /* Matches row title padding */
-        }
-
-        /* Poster Card Link Styling */
-        .poster-card-link {
-            text-decoration: none; /* Remove underline from link */
-            color: inherit; /* Inherit text color */
-            display: block; /* Make the entire link block-level */
-            position: relative; /* For absolute positioning of badge/overlay */
-            background-color: #303030; /* Placeholder background */
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-        }
-
-        .poster-card-link:hover {
-            transform: scale(1.05); /* Slight enlargement on hover */
-            z-index: 10; /* Bring hovered item to front */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-        }
-
-        .poster-card-link img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-        }
-
-        .poster-card-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-            color: #fff;
-            padding: 10px;
-            font-size: 0.9em;
-            font-weight: 600;
-            text-align: center;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s ease;
-        }
-
-        .poster-card-link:hover .poster-card-overlay {
-            opacity: 1; /* Show on hover */
-        }
-
-        .badge-n {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background-color: #E50914;
-            color: white;
-            font-size: 0.7em;
-            font-weight: bold;
-            padding: 3px 6px;
-            border-radius: 2px;
-            z-index: 5; /* Ensure it's above the image */
-        }
-
-        /* Responsive Adjustments (Basic) */
-        @media (max-width: 768px) {
-            .navbar-nav {
-                display: none; /* Hide main nav links on smaller screens */
-            }
-
-            .row-posters {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller cards */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navbar-logo {
-                font-size: 1.5em;
-            }
-
-            .row-posters {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Even smaller cards */
-            }
-
-            .row-title {
-                font-size: 1.3em;
-            }
+        /* Ensure images in the grid have a consistent aspect ratio */
+        .poster-img {
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
         }
     </style>
 </head>
-<body>
+<body class="bg-zinc-900 text-gray-200">
 
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a href="#" class="navbar-logo">COURSEFLIX</a>
+    <!-- Navbar -->
+    <nav class="bg-zinc-900/80 backdrop-blur-sm fixed w-full top-0 left-0 z-20 px-4 sm:px-8 md:px-16">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-red-600 text-2xl font-bold tracking-wider">COURSEFLIX</a>
+            </div>
+            <div class="flex items-center space-x-6">
+                <i class="fas fa-search text-gray-300 hover:text-white text-lg cursor-pointer transition-colors"></i>
+                <i class="fas fa-bell text-gray-300 hover:text-white text-lg cursor-pointer transition-colors"></i>
+                <div class="w-8 h-8 rounded bg-zinc-700 cursor-pointer">
+                    <img src="https://placehold.co/32x32/E50914/FFFFFF?text=U" alt="User Profile" class="w-full h-full rounded">
+                </div>
+            </div>
         </div>
-        <div class="navbar-right">
-            <i class="fas fa-search navbar-icon"></i>
-            <i class="fas fa-bell navbar-icon"></i>
-            <div class="profile-dropdown"></div> </div>
     </nav>
 
-    <div class="main-content">
+    <!-- Main Content -->
+    <main class="pt-24 pb-12">
+        <!-- Movie Websites Section -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-white mb-6 px-4 sm:px-8 md:px-16">Movie Websites</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4 sm:px-8 md:px-16">
+                
+                <!-- Existing Cards -->
+                <a href="https://boredflix.com/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
+                    <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=800" alt="Sci-fi movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Boredflix';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">boredflix</h3></div>
+                </a>
+                <a href="https://www.tapemotion.com/en" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800" alt="Classic movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Tapemotion';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Tape motion</h3></div>
+                </a>
+                <a href="http://4ktvonline.site/en/movie-popular" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
+                    <img src="https://images.unsplash.com/photo-1620145648299-f926ac0a9470?q=80&w=800" alt="Action movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=4K+TV';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">4k tv online</h3></div>
+                </a>
+                <a href="https://www.hydraflix.vip/home/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
+                    <img src="https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=800" alt="Fantasy movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Hydraflix';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Hydraflix</h3></div>
+                </a>
+                
+                <!-- New Movie Site Cards -->
+                <a href="https://pstream.org/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?q=80&w=800" alt="Movie streaming poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Pstream';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Pstream</h3></div>
+                </a>
+                 <a href="https://www.cineby.app/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800" alt="Cinema poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Cineby';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Cineby</h3></div>
+                </a>
+                <a href="https://www.fmovies.cat/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=800" alt="Movies collection poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Fmovies';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Fmovies</h3></div>
+                </a>
+                <a href="https://xprime.tv/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=800" alt="TV screen poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Xprime';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Xprime</h3></div>
+                </a>
+                 <a href="https://veloratv.ru/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=800" alt="Abstract TV poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=VeloraTV';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">VeloraTV</h3></div>
+                </a>
+            </div>
+        </section>
 
-        <div class="content-row">
-            <h2 class="row-title">Movie Websites</h2>
-            <div class="row-posters">
-                <a href="https://boredflix.com/" class="poster-card-link">
-                    <span class="badge-n">N</span>
-                    <img src="https://ibb.co/mrq2M4WL" alt="TV Show 1">
-                    <div class="poster-card-overlay">
-                        boredflix
-                    </div>
+        <!-- Live Section -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-white mb-6 px-4 sm:px-8 md:px-16">Live</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4 sm:px-8 md:px-16">
+                <a href="https://int.klcis.cc/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f82d72?q=80&w=800" alt="Live TV poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=KLCIS';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">KLCIS</h3></div>
                 </a>
-                <a href="https://www.tapemotion.com/en" class="poster-card-link">
-                    <span class="badge-n">N</span>
-                    <img src="https://ibb.co/WWd76r9V" alt="TV Show 2">
-                    <div class="poster-card-overlay">Tape motion</div>
+                <a href="https://ustream.to" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1522889926228-ca5ba622c825?q=80&w=800" alt="Live stream poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Ustream';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Ustream</h3></div>
                 </a>
-                <a href="http://4ktvonline.site/en/movie-popular" class="poster-card-link">
-                    <span class="badge-n">N</span>
-                    <img src="https://ibb.co/bgR1mDDg" alt="TV Show 3">
-                    <div class="poster-card-overlay">4k tv online</div>
+                <a href="https://thetvapp.to/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1611181654522-3e21a3b4354a?q=80&w=800" alt="TV App poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=TheTVApp';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">TheTVApp</h3></div>
                 </a>
-                <a href="https://www.hydraflix.vip/home/" class="poster-card-link">
-                    <span class="badge-n">N</span>
-                    <img src="https://ibb.co/BKT7p9WP" alt="TV Show 4">
-                    <div class="poster-card-overlay">Hydraflix</div>
+                <a href="https://tv.garden/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1460881264333-2b9b452a65a4?q=80&w=800" alt="TV Garden poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=TV+Garden';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">TV Garden</h3></div>
                 </a>
-               <!-- <a href="#tv-show-5-details" class="poster-card-link">
-                    <span class="badge-n">N</span>
-                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+5" alt="TV Show 5">
-                    <div class="poster-card-overlay">TV Show Title 5</div>
-                </a>
-                <a href="#tv-show-6-details" class="poster-card-link">
-                    <span class="badge-n">N</span>
-                    <img src="https://via.placeholder.com/200x300/404040/FFFFFF?text=TV+Show+6" alt="TV Show 6">
-                    <div class="poster-card-overlay">TV Show Title 6</div>
-                </a> -->
-                </div>
-        </div>
+            </div>
+        </section>
 
-      
-
-    </div>
+        <!-- Live Sports Section -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-white mb-6 px-4 sm:px-8 md:px-16">Live Sports</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4 sm:px-8 md:px-16">
+                <a href="https://watchsports.to/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800" alt="Soccer match poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=WatchSports';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">WatchSports</h3></div>
+                </a>
+                <a href="https://sportyhunter.com/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=800" alt="Football players poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=SportyHunter';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">SportyHunter</h3></div>
+                </a>
+                 <a href="https://streamed.su/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1543351368-3d6a4a93332f?q=80&w=800" alt="Basketball game poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Streamed';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Streamed</h3></div>
+                </a>
+                <a href="https://www.rbtv77.kaufen/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800" alt="Athlete running poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=RBTV77';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">RBTV77</h3></div>
+                </a>
+                <a href="https://www.viprow.nu/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1487466365202-1afdb86c764e?q=80&w=800" alt="Stadium lights poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Viprow';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Viprow</h3></div>
+                </a>
+                <a href="https://sport-tv.live/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1552667466-07770ae110d0?q=80&w=800" alt="Live sports TV screen poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Sport-TV';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Sport-TV Live</h3></div>
+                </a>
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>
