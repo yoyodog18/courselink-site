@@ -4,7 +4,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found / Courselink</title>
+    <title>Courselink</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,117 +15,59 @@
             padding: 0;
         }
 
-        /* --- Global Body Styles (apply to both states if possible, or override as needed) --- */
+        /* --- Theme Variables --- */
+        :root {
+            --bg-gradient-start: #A8DADC;
+            --bg-gradient-end: #F7E7CE;
+            --text-primary: #333;
+            --text-secondary: #4a5568;
+            --navbar-bg: rgba(255, 255, 255, 0.8);
+            --container-bg: rgba(255, 255, 255, 0.7);
+            --btn-secondary-bg: rgba(0, 0, 0, 0.1);
+            --btn-secondary-border: rgba(0, 0, 0, 0.2);
+            --btn-secondary-hover-bg: rgba(0, 0, 0, 0.2);
+            --crossed-out-line: #A0AEC0;
+        }
+
+        .dark {
+            --bg-gradient-start: #1A202C;
+            --bg-gradient-end: #2D3748;
+            --text-primary: #EDF2F7;
+            --text-secondary: #A0AEC0;
+            --navbar-bg: rgba(26, 32, 44, 0.8);
+            --container-bg: rgba(45, 55, 72, 0.7);
+            --btn-secondary-bg: rgba(255, 255, 255, 0.1);
+            --btn-secondary-border: rgba(255, 255, 255, 0.2);
+            --btn-secondary-hover-bg: rgba(255, 255, 255, 0.2);
+            --crossed-out-line: #718096;
+        }
+
+        /* --- Global Body Styles --- */
         body {
-            font-family: Arial, sans-serif; /* Default font for 404 */
-            background-color: #fff; /* Default background for 404 */
-            color: #222; /* Default text color for 404 */
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: auto; /* Allow scrollbars when needed */
+            overflow: auto;
             position: relative;
-            transition: background 0.5s ease; /* Smooth transition for background change */
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Styles for the 404 section */
-        #page-404 {
-            display: flex; /* Initially visible */
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1; /* Allows it to take available height */
-        }
-
-        /* Main wrapper for 404 content and robot side-by-side */
-        .wrapper-404 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            max-width: 900px;
-            width: 100%;
-            padding: 20px;
-        }
-
-        /* Container for 404 text content */
-        .content-container-404 {
-            text-align: left;
-            flex-shrink: 0;
-            padding-right: 50px;
-            min-width: 250px;
-        }
-
-        /* Google logo container for 404, now clickable */
-        .google-logo-link {
-            display: inline-block;
-            position: relative;
-            margin-bottom: 30px;
-            cursor: pointer;
-            line-height: 0;
-        }
-
-        .google-logo-link img {
-            width: 150px;
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* 404 heading */
-        h1.error-heading {
-            font-size: 200%;
-            color: #000;
-            font-weight: normal;
-            margin-bottom: 20px;
-            word-wrap: break-word;
-        }
-
-        /* 404 paragraph text */
-        p.error-text {
-            font-size: 100%;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            word-wrap: break-word;
-        }
-
-        /* Robot image for 404 */
-        .robot-image-404 {
-            flex-shrink: 0;
-            margin-left: 50px;
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-width: 150px;
-        }
-
-        .robot-image-404 img {
-            width: 250px;
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* --- CourseLink Section Styles (initially hidden) --- */
+        /* --- CourseLink Section Styles --- */
         #page-courselink {
-            display: none; /* Initially hidden */
-            font-family: 'Inter', sans-serif; /* Specific font for this section */
-            background: linear-gradient(135deg, #A8DADC, #F7E7CE); /* Background for this section */
-            color: #333;
-            min-height: 100vh;
-            width: 100%; /* Ensure it takes full width */
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 100%;
+            min-height: 100vh;
             padding-top: 80px; /* Space for the fixed navbar */
-            padding-bottom: 20px; /* Space at the bottom */
-            flex-grow: 1; /* Allows it to take available height */
-        }
-
-        /* Ensure body background adapts when CourseLink is shown */
-        body.courselink-active {
-            background: linear-gradient(135deg, #A8DADC, #F7E7CE);
-            font-family: 'Inter', sans-serif;
+            padding-bottom: 80px; /* Space for the theme switcher */
+            flex-grow: 1;
         }
 
         /* Navbar for CourseLink */
@@ -134,23 +76,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem; /* py-4 px-8 from Tailwind */
-            position: absolute; /* Fixed at the top */
+            padding: 1rem 2rem;
+            position: absolute;
             top: 0;
             left: 0;
             z-index: 20;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-bottom-left-radius: 0.5rem; /* rounded-b-lg */
-            border-bottom-right-radius: 0.5rem; /* rounded-b-lg */
+            background-color: var(--navbar-bg);
+            backdrop-filter: blur(5px);
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
-        .navbar .text-gray-800 { color: #333; } /* Ensure text is dark */
-        .navbar .svg-icon { color: #333; } /* Ensure icon is dark */
-
+        .navbar .text-gray-800 { color: var(--text-primary); }
+        .navbar .svg-icon { color: var(--text-primary); }
 
         /* Main container for CourseLink content */
         .container-courselink {
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: var(--container-bg);
+            backdrop-filter: blur(5px);
             border-radius: 20px;
             padding: 2.5rem;
             max-width: 90%;
@@ -161,7 +105,11 @@
             gap: 2rem;
             position: relative;
             z-index: 10;
+            transition: background-color 0.3s ease;
         }
+        
+        .main-heading { color: var(--text-primary); }
+        .main-paragraph { color: var(--text-secondary); }
 
         /* CourseLink left section */
         .left-section-courselink {
@@ -200,47 +148,46 @@
             filter: brightness(1) contrast(1);
         }
 
-        /* Buttons for CourseLink */
+        /* General Button Styles */
         .btn {
             padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
             font-weight: 600;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-align: center; /* Ensure text is centered inside button */
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 9999px;
         }
 
+        /* CourseLink Specific Buttons */
         .btn-primary {
             background: linear-gradient(45deg, #FF9800, #F44336);
             color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
         .btn-primary:hover {
             background: linear-gradient(45deg, #E65100, #D32F2F);
             transform: translateY(-2px);
         }
-
         .btn-secondary {
-            background: rgba(0, 0, 0, 0.1);
-            color: #333;
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: var(--btn-secondary-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--btn-secondary-border);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
-
         .btn-secondary:hover {
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--btn-secondary-hover-bg);
             transform: translateY(-2px);
         }
-        
         .btn-tertiary {
             background: linear-gradient(45deg, #4158D0, #C850C0);
             color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
         .btn-tertiary:hover {
             background: linear-gradient(45deg, #3749a3, #a04099);
             transform: translateY(-2px);
@@ -251,7 +198,6 @@
             position: relative;
             display: inline-block;
         }
-
         .crossed-out-text::after {
             content: '';
             position: absolute;
@@ -259,39 +205,61 @@
             right: 0;
             top: 50%;
             height: 1px;
-            background-color: #A0AEC0;
+            background-color: var(--crossed-out-line);
             transform: translateY(-50%) rotate(-5deg);
             opacity: 0.5;
+            transition: background-color 0.3s ease;
         }
+
+        /* --- Theme Switcher Styles --- */
+        .theme-switcher {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+        }
+        .theme-switcher label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 60px;
+            height: 30px;
+            background-color: #4A5568;
+            border-radius: 50px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .theme-switcher .slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .theme-switcher input:checked + label .slider {
+            transform: translateX(30px);
+        }
+        .theme-switcher input {
+            display: none;
+        }
+        .theme-switcher .sun-icon, .theme-switcher .moon-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #FBBF24; /* yellow for sun/moon */
+            transition: opacity 0.3s ease;
+        }
+        .theme-switcher .sun-icon { left: 6px; opacity: 0; }
+        .theme-switcher .moon-icon { right: 6px; opacity: 1; }
+        .theme-switcher input:checked + label .sun-icon { opacity: 1; }
+        .theme-switcher input:checked + label .moon-icon { opacity: 0; }
+
 
         /* --- Media Queries for Responsiveness --- */
-        @media (max-width: 768px) {
-            .wrapper-404 {
-                flex-direction: column;
-                padding: 15px;
-            }
-            .content-container-404 {
-                padding-right: 0;
-                padding-bottom: 30px;
-                text-align: center;
-            }
-            .robot-image-404 {
-                margin-left: 0;
-                margin-top: 20px;
-            }
-            .google-logo-link img { width: 100px; }
-            h1.error-heading { font-size: 150%; }
-            p.error-text { font-size: 90%; }
-            .robot-image-404 img { width: 180px; }
-        }
-
-        @media (max-width: 480px) {
-            h1.error-heading { font-size: 130%; }
-            p.error-text { font-size: 85%; }
-            .google-logo-link img { width: 80px; }
-            .robot-image-404 img { width: 150px; }
-        }
-
         @media (min-width: 768px) {
             .container-courselink {
                 flex-direction: row;
@@ -321,21 +289,7 @@
     </style>
 </head>
 <body>
-    <div id="page-404">
-        <div class="wrapper-404">
-            <div class="content-container-404">
-                <a href="#" class="google-logo-link" aria-label="Click to reveal CourseLink" onclick="showCourseLink(event)">
-                    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google">
-                </a>
-                <h1 class="error-heading">404. That's an error.</h1>
-                <p class="error-text">The requested URL was not found on this server. That’s all we know.</p>
-            </div>
-            <div class="robot-image-404">
-                <img src="data:image/jpeg;base64,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" alt="Broken Robot">
-            </div>
-        </div>
-    </div>
-
+    <!-- The "Real" CourseLink Site -->
     <div id="page-courselink">
         <nav class="navbar">
             <div class="flex items-center space-x-2">
@@ -348,18 +302,16 @@
 
         <div class="container-courselink relative z-10">
             <div class="left-section-courselink">
-                <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight text-gray-800">
+                <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight main-heading">
                     <span class="block crossed-out-text">NOT BANNED</span>
                     <span class="block text-orange-600">SCHOOL FUN</span>
                 </h1>
-                <p class="text-lg md:text-xl text-gray-600 mb-6 max-w-lg">
+                <p class="text-lg md:text-xl mb-6 max-w-lg main-paragraph">
                     Please use this website responsibly and at appropriate times. You are solely responsible for your use of this site.
                 </p>
-                <!-- MODIFIED: Updated button container for better responsiveness -->
                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
                     <a href="courses.html" class="btn btn-primary">G.A.M.E library</a>
                     <a href="movies.html" class="btn btn-secondary">M.o.v.i.e directory</a>
-                    <!-- ADDED: New trial button -->
                     <a href="https://app.apponfly.com/trial" class="btn btn-secondary" target="_blank">20 min trial virtual computer</a>
                     <a href="https://browsers.courselink.org" class="btn btn-tertiary" target="_blank">
                         <span>Virtual Browser</span>
@@ -372,33 +324,54 @@
 
             <div class="right-section-courselink">
                 <div class="circular-border">
-                    <img src="logo.png" alt="Entertainment Image" class="circular-image" onerror="this.onerror=null; this.src='https://placehold.co/300x300/A8DADC/FF9800?text=Placeholder';"/>
+                    <img src="logo.png" alt="Entertainment Image" class="circular-image" onerror="this.onerror=null; this.src='https.onerror=null; this.src=\'https://placehold.co/300x300/A8DADC/FF9800?text=Placeholder\';'"/>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Function to show the CourseLink page and hide the 404 page
-        function showCourseLink(event) {
-            // Prevent the default link behavior (e.g., navigating to #)
-            event.preventDefault();
-            const page404 = document.getElementById('page-404');
-            const pageCourselink = document.getElementById('page-courselink');
-            const body = document.body;
-            // Hide the 404 page
-            page404.style.display = 'none';
-            // Show the CourseLink page
-            pageCourselink.style.display = 'flex'; // Use flex to maintain layout
-            // Apply the CourseLink specific background to the body
-            body.classList.add('courselink-active');
-        }
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <input type="checkbox" id="theme-toggle">
+        <label for="theme-toggle">
+            <svg class="sun-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <span class="slider"></span>
+            <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </label>
+    </div>
 
-        // Initial setup: ensure CourseLink is hidden on load
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('page-courselink').style.display = 'none';
-            // Ensure 404 page is visible initially
-            document.getElementById('page-404').style.display = 'flex';
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Function to apply the theme
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.add('dark');
+                    themeToggle.checked = true;
+                } else {
+                    body.classList.remove('dark');
+                    themeToggle.checked = false;
+                }
+            };
+
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            }
+
+            // Event listener for the theme toggle
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    applyTheme('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    applyTheme('light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
         });
     </script>
 </body>
