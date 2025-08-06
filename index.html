@@ -1,375 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
-    <link rel="icon" type="image/png" href="/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courselink</title>
+    <title>Courselink - Redesigned</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* General reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* --- Theme Variables --- */
-        :root {
-            --bg-gradient-start: #A8DADC;
-            --bg-gradient-end: #F7E7CE;
-            --text-primary: #333;
-            --text-secondary: #4a5568;
-            --navbar-bg: rgba(255, 255, 255, 0.8);
-            --container-bg: rgba(255, 255, 255, 0.7);
-            --btn-secondary-bg: rgba(0, 0, 0, 0.1);
-            --btn-secondary-border: rgba(0, 0, 0, 0.2);
-            --btn-secondary-hover-bg: rgba(0, 0, 0, 0.2);
-            --crossed-out-line: #A0AEC0;
-        }
-
-        .dark {
-            --bg-gradient-start: #1A202C;
-            --bg-gradient-end: #2D3748;
-            --text-primary: #EDF2F7;
-            --text-secondary: #A0AEC0;
-            --navbar-bg: rgba(26, 32, 44, 0.8);
-            --container-bg: rgba(45, 55, 72, 0.7);
-            --btn-secondary-bg: rgba(255, 255, 255, 0.1);
-            --btn-secondary-border: rgba(255, 255, 255, 0.2);
-            --btn-secondary-hover-bg: rgba(255, 255, 255, 0.2);
-            --crossed-out-line: #718096;
-        }
-
-        /* --- Global Body Styles --- */
+        /* Custom styles for the redesigned website */
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-            position: relative;
-            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* --- CourseLink Section Styles --- */
-        #page-courselink {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            min-height: 100vh;
-            padding-top: 80px; /* Space for the fixed navbar */
-            padding-bottom: 80px; /* Space for the theme switcher */
-            flex-grow: 1;
+        /* Light Theme Variables */
+        :root {
+            --bg-color: #f1f5f9; /* slate-100 */
+            --text-color: #0f172a; /* slate-900 */
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --navbar-bg: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(226, 232, 240, 0.7); /* slate-200 */
+            --hero-gradient-start: #38bdf8; /* sky-500 */
+            --hero-gradient-end: #818cf8; /* indigo-400 */
+            --icon-color: #64748b; /* slate-500 */
+            --shadow-color: 220, 40%, 80%;
+            --gradient-start: #a8dadc;
+            --gradient-mid: #f1faee;
+            --gradient-end: #e63946;
         }
 
-        /* Navbar for CourseLink */
-        .navbar {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 20;
-            background-color: var(--navbar-bg);
-            backdrop-filter: blur(5px);
-            border-bottom-left-radius: 0.5rem;
-            border-bottom-right-radius: 0.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease;
+        /* Dark Theme Variables */
+        .dark {
+            --bg-color: #0b1120; /* custom darker slate */
+            --text-color: #f1f5f9; /* slate-100 */
+            --card-bg: rgba(30, 41, 59, 0.6); /* slate-800 */
+            --navbar-bg: rgba(11, 17, 32, 0.5);
+            --border-color: rgba(51, 65, 85, 0.7); /* slate-700 */
+            --hero-gradient-start: #38bdf8; /* sky-500 */
+            --hero-gradient-end: #c084fc; /* purple-400 */
+            --icon-color: #94a3b8; /* slate-400 */
+            --shadow-color: 220, 40%, 3%;
+            --gradient-start: #1d3557;
+            --gradient-mid: #457b9d;
+            --gradient-end: #e63946;
         }
-        .navbar .text-gray-800 { color: var(--text-primary); }
-        .navbar .svg-icon { color: var(--text-primary); }
 
-        /* Main container for CourseLink content */
-        .container-courselink {
-            background-color: var(--container-bg);
-            backdrop-filter: blur(5px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            max-width: 90%;
-            width: 1200px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            position: relative;
-            z-index: 10;
-            transition: background-color 0.3s ease;
+        /* General Body Styles */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
         
-        .main-heading { color: var(--text-primary); }
-        .main-paragraph { color: var(--text-secondary); }
-
-        /* CourseLink left section */
-        .left-section-courselink {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: left;
-        }
-
-        /* CourseLink right section */
-        .right-section-courselink {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 1rem;
-        }
-
-        /* Circular border for CourseLink image */
-        .circular-border {
-            border: 5px solid;
-            border-image: linear-gradient(to right, #FFC107, #FF9800) 1;
-            border-radius: 50%;
-            padding: 5px;
-        }
-
-        /* Circular image for CourseLink */
-        .circular-image {
-            border-radius: 50%;
-            object-fit: cover;
-            width: 300px;
-            height: 300px;
-            filter: brightness(1) contrast(1);
-        }
-
-        /* General Button Styles */
-        .btn {
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            border-radius: 9999px;
-        }
-
-        /* CourseLink Specific Buttons */
-        .btn-primary {
-            background: linear-gradient(45deg, #FF9800, #F44336);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #E65100, #D32F2F);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: var(--btn-secondary-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--btn-secondary-border);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        .btn-secondary:hover {
-            background: var(--btn-secondary-hover-bg);
-            transform: translateY(-2px);
-        }
-        .btn-tertiary {
-            background: linear-gradient(45deg, #4158D0, #C850C0);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .btn-tertiary:hover {
-            background: linear-gradient(45deg, #3749a3, #a04099);
-            transform: translateY(-2px);
-        }
-
-        /* Crossed-out text effect for CourseLink heading */
-        .crossed-out-text {
-            position: relative;
-            display: inline-block;
-        }
-        .crossed-out-text::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            height: 1px;
-            background-color: var(--crossed-out-line);
-            transform: translateY(-50%) rotate(-5deg);
-            opacity: 0.5;
-            transition: background-color 0.3s ease;
-        }
-
-        /* --- Theme Switcher Styles --- */
-        .theme-switcher {
+        /* Animated Gradient Background */
+        .background-animation {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 100;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            transition: background 0.5s ease;
         }
-        .theme-switcher label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 60px;
-            height: 30px;
-            background-color: #4A5568;
-            border-radius: 50px;
-            position: relative;
-            transition: background-color 0.3s;
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .theme-switcher .slider {
+
+        /* Floating Shapes */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .shape {
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: white;
             border-radius: 50%;
-            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(80px);
+            animation: float 20s infinite linear;
         }
-        .theme-switcher input:checked + label .slider {
-            transform: translateX(30px);
-        }
-        .theme-switcher input {
-            display: none;
-        }
-        .theme-switcher .sun-icon, .theme-switcher .moon-icon {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #FBBF24; /* yellow for sun/moon */
-            transition: opacity 0.3s ease;
-        }
-        .theme-switcher .sun-icon { left: 6px; opacity: 0; }
-        .theme-switcher .moon-icon { right: 6px; opacity: 1; }
-        .theme-switcher input:checked + label .sun-icon { opacity: 1; }
-        .theme-switcher input:checked + label .moon-icon { opacity: 0; }
+        .shape1 { width: 400px; height: 400px; top: 10%; left: 10%; animation-duration: 25s; }
+        .shape2 { width: 300px; height: 300px; top: 60%; left: 80%; animation-duration: 30s; animation-delay: 5s; }
+        .shape3 { width: 200px; height: 200px; top: 40%; left: 40%; animation-duration: 20s; animation-delay: 2s; }
+        .dark .shape { background: rgba(0,0,0,0.1); }
 
-
-        /* --- Media Queries for Responsiveness --- */
-        @media (min-width: 768px) {
-            .container-courselink {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 3rem;
-            }
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            25% { transform: translateY(20px) translateX(-30px) rotate(90deg); }
+            50% { transform: translateY(-20px) translateX(20px) rotate(180deg); }
+            75% { transform: translateY(30px) translateX(10px) rotate(270deg); }
+            100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
         }
 
-        @media (max-width: 767px) {
-            .container-courselink { padding: 1.5rem; }
-            .left-section-courselink {
-                align-items: center;
-                text-align: center;
-            }
-            .right-section-courselink {
-                order: -1;
-                margin-bottom: 2rem;
-            }
-            .navbar {
-                flex-direction: column;
-                align-items: center;
-                padding-bottom: 1rem;
-            }
-            .navbar-nav { margin-top: 1rem; }
-            .navbar-nav a { margin: 0.5rem 0; }
+        /* Navbar & Card Styles with Backdrop Filter */
+        .navbar, .main-card, .btn-glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .navbar {
+            background-color: var(--navbar-bg);
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .main-card {
+             background-color: var(--card-bg);
+             border: 1px solid var(--border-color);
+        }
+
+        /* Hero section gradient text */
+        .gradient-text {
+            background: linear-gradient(45deg, var(--hero-gradient-start), var(--hero-gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Strikethrough style */
+        .strike-through {
+            text-decoration-color: var(--icon-color);
+        }
+
+        /* Theme switcher styles */
+        #theme-toggle:checked + label .slider {
+            transform: translateX(100%);
+            background-color: #38bdf8; /* sky-500 */
+        }
+
+        /* Glassmorphism Button Styles */
+        .btn-glass {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.2s ease-in-out;
+            border: 1px solid;
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+        .dark .btn-glass {
+            border-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .btn-glass:hover {
+            transform: scale(1.05) translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        .dark .btn-glass:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
-<body>
-    <!-- The "Real" CourseLink Site -->
-    <div id="page-courselink">
-        <nav class="navbar">
-            <div class="flex items-center space-x-2">
-                <svg class="svg-icon w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                </svg>
-                <span class="text-gray-800 text-xl font-bold">COURSELINK</span>
-            </div>
-        </nav>
+<body class="antialiased">
+    
+    <!-- Animated Background -->
+    <div class="background-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
 
-        <div class="container-courselink relative z-10">
-            <div class="left-section-courselink">
-                <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight main-heading">
-                    <span class="block crossed-out-text">NOT BANNED</span>
-                    <span class="block text-orange-600">SCHOOL FUN</span>
-                </h1>
-                <p class="text-lg md:text-xl mb-6 max-w-lg main-paragraph">
-                    Please use this website responsibly and at appropriate times. You are solely responsible for your use of this site.
-                </p>
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                    <a href="courses.html" class="btn btn-primary">G.A.M.E library</a>
-                    <a href="movies.html" class="btn btn-secondary">M.o.v.i.e directory</a>
-                    <a href="https://app.apponfly.com/trial" class="btn btn-secondary" target="_blank">20 min trial virtual computer</a>
-                    <a href="https://browsers.courselink.org" class="btn btn-tertiary" target="_blank">
-                        <span>Virtual Browser</span>
-                        <span class="ml-2 px-2 py-0.5 text-xs font-bold text-gray-800 bg-yellow-400 rounded-full uppercase tracking-wider">
-                            Premium
-                        </span>
-                    </a>
+    <!-- Navbar -->
+    <nav class="navbar sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span class="text-2xl font-bold tracking-tight" style="color: var(--text-color);">Courselink</span>
                 </div>
-            </div>
-
-            <div class="right-section-courselink">
-                <div class="circular-border">
-                    <img src="logo.png" alt="Entertainment Image" class="circular-image" onerror="this.onerror=null; this.src='https.onerror=null; this.src=\'https://placehold.co/300x300/A8DADC/FF9800?text=Placeholder\';'"/>
+                <div class="flex items-center space-x-4">
+                    <!-- Theme Switcher -->
+                    <div class="flex items-center">
+                         <input type="checkbox" id="theme-toggle" class="hidden">
+                         <label for="theme-toggle" class="flex items-center cursor-pointer">
+                             <div class="relative">
+                                 <div class="w-10 h-6 bg-gray-300 dark:bg-slate-700 rounded-full shadow-inner"></div>
+                                 <div class="slider absolute w-4 h-4 bg-white rounded-full shadow inset-y-0 my-auto left-1 transition-transform duration-300 ease-in-out"></div>
+                             </div>
+                         </label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <input type="checkbox" id="theme-toggle">
-        <label for="theme-toggle">
-            <svg class="sun-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <span class="slider"></span>
-            <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-        </label>
-    </div>
+    <!-- Main Content -->
+    <main class="relative z-10 flex items-center justify-center min-h-[calc(100vh-128px)] py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="main-card rounded-2xl shadow-xl p-8 lg:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+                <!-- Left Section -->
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-4">
+                        <span class="strike-through decoration-4 decoration-wavy">Not blocked</span>
+                        <span class="gradient-text">School Fun</span>
+                    </h1>
+                    <p class="max-w-md mx-auto lg:mx-0 text-lg md:text-xl mb-8" style="color: var(--icon-color);">
+                        Use responsibly. 
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="courses.html" class="btn-glass">G.A.M.E Library</a>
+                        <a href="movies.html" class="btn-glass">M.o.v.i.e Directory</a>
+                        <a href="https://browsers.courselink.org" target="_blank" class="btn-glass">Virtual Browser</a>
+                    </div>
+                </div>
+
+                <!-- Right Section -->
+                <div class="lg:w-1/2 flex justify-center">
+                     <div class="relative w-64 h-64 sm:w-80 sm:h-80">
+                        <div class="absolute inset-2 rounded-full bg-[var(--card-bg)] p-2 border-4 border-amber-400">
+                             <img src="logo.png" alt="Courselink Logo" class="w-full h-full object-cover rounded-full shadow-md" onerror="this.onerror=null; this.src='https://placehold.co/300x300/1e293b/FFFFFF?text=Logo';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="relative z-10 pb-8 pt-4">
+        <div class="text-center" style="color: var(--icon-color);">
+            <p>&copy; 2025 Courselink. All Rights Reserved.</p>
+            <p class="text-sm">Please use this site responsibly.</p>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Theme Management ---
             const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
+            const htmlEl = document.documentElement;
 
-            // Function to apply the theme
             const applyTheme = (theme) => {
                 if (theme === 'dark') {
-                    body.classList.add('dark');
+                    htmlEl.classList.add('dark');
                     themeToggle.checked = true;
                 } else {
-                    body.classList.remove('dark');
+                    htmlEl.classList.remove('dark');
                     themeToggle.checked = false;
                 }
             };
 
-            // Check for saved theme in localStorage
             const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
             if (savedTheme) {
                 applyTheme(savedTheme);
+            } else {
+                applyTheme(prefersDark ? 'dark' : 'light');
             }
 
-            // Event listener for the theme toggle
             themeToggle.addEventListener('change', () => {
-                if (themeToggle.checked) {
-                    applyTheme('dark');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    applyTheme('light');
-                    localStorage.setItem('theme', 'light');
+                const newTheme = themeToggle.checked ? 'dark' : 'light';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches ? 'dark' : 'light');
                 }
             });
         });
