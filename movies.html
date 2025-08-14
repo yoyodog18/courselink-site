@@ -1,151 +1,318 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SourceFlix - Browse</title>
+    <title>Courselink - The Streaming Library</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Custom font */
+        /* CSS Variables for theming */
+        :root {
+            --bg-color: #f4f5f7;
+            --text-color: #18181b;
+            --text-color-muted: #71717a;
+            --text-highlight: #007BFF; /* More blue */
+            --text-gradient-stop: #e73c7e;
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --card-border: rgba(228, 228, 231, 0.8);
+            --nav-bg: rgba(255, 255, 255, 0.5);
+            --button-bg: rgba(228, 228, 231, 0.5);
+            --button-hover-bg: rgba(228, 228, 231, 0.8);
+        }
+
+        html.dark {
+            --bg-color: #111113;
+            --text-color: #f4f4f5;
+            --text-color-muted: #a1a1aa;
+            --text-highlight: #3399FF; /* More blue */
+            --text-gradient-stop: #ee7752;
+            --card-bg: rgba(24, 24, 27, 0.4);
+            --card-border: rgba(63, 63, 70, 0.7);
+            --nav-bg: rgba(24, 24, 27, 0.4);
+            --button-bg: rgba(63, 63, 70, 0.4);
+            --button-hover-bg: rgba(63, 63, 70, 0.7);
+        }
+
+        /* Animated Gradient Background */
         body {
-            font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #a8edea, #fed6e3, #a7c5eb, #f3e7e9);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--text-color);
         }
-        /* Ensure images in the grid have a consistent aspect ratio */
-        .poster-img {
-            aspect-ratio: 2 / 3;
-            object-fit: cover;
+        html.dark body {
+             background: linear-gradient(-45deg, #000428, #004e92, #1CB5E0, #000428);
+             background-size: 400% 400%;
+             animation: gradient 15s ease infinite;
         }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Main container with glassmorphism */
+        .main-container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--card-border);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-top: 100px; /* Space for nav */
+        }
+
+        /* Navbar styling */
+        nav {
+            background-color: var(--nav-bg) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+        }
+        
+        .brand-logo { color: var(--text-color); }
+        h1, h2 { color: var(--text-color); }
+        p, footer { color: var(--text-color-muted); }
+        
+        /* Gradient Text Styling */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--text-highlight), var(--text-gradient-stop));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* New Site Button Styling */
+        .site-button {
+            background-color: var(--button-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80px;
+        }
+        .site-button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+        
+        /* Theme Toggle Slider */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 44px;
+        }
+        .theme-switch input {
+            display:none;
+        }
+        .slider {
+            background-color: var(--button-bg);
+            border: 1px solid var(--card-border);
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: var(--text-color-muted);
+            bottom: 3px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: var(--button-hover-bg);
+        }
+        input:checked + .slider:before {
+            transform: translateX(18px);
+            background-color: var(--text-color);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
     </style>
 </head>
-<body class="bg-zinc-900 text-gray-200">
+<body class="antialiased">
 
     <!-- Navbar -->
-    <nav class="bg-zinc-900/80 backdrop-blur-sm fixed w-full top-0 left-0 z-20 px-4 sm:px-8 md:px-16">
-        <div class="flex items-center justify-between h-16">
-            <div class="flex items-center space-x-6">
-                <a href="#" class="text-red-600 text-2xl font-bold tracking-wider">COURSEFLIX</a>
-            </div>
-            <div class="flex items-center space-x-6">
-                <i class="fas fa-search text-gray-300 hover:text-white text-lg cursor-pointer transition-colors"></i>
-                <i class="fas fa-bell text-gray-300 hover:text-white text-lg cursor-pointer transition-colors"></i>
-                <div class="w-8 h-8 rounded bg-zinc-700 cursor-pointer">
-                    <img src="https://placehold.co/32x32/E50914/FFFFFF?text=U" alt="User Profile" class="w-full h-full rounded">
-                </div>
+    <nav class="fixed w-full top-0 left-0 z-30 px-4 sm:px-8 md:px-16">
+        <div class="flex items-center justify-between h-20">
+            <a href="#" class="brand-logo text-xl font-bold flex items-center gap-2">
+                <i class="fas fa-bolt"></i>
+                <span>Courselink</span>
+            </a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-24 pb-12">
-        <!-- Movie Websites Section -->
-        <section class="mb-10">
-            <h2 class="text-3xl font-bold text-white mb-6 px-4 sm:px-8 md:px-16">Movie Websites</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4 sm:px-8 md:px-16">
-                
-                <!-- Existing Cards -->
-                <a href="https://boredflix.com/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
-                    <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=800" alt="Sci-fi movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Boredflix';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">boredflix</h3></div>
-                </a>
-                <a href="https://www.tapemotion.com/en" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
-                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800" alt="Classic movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Tapemotion';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Tape motion</h3></div>
-                </a>
-                <a href="http://4ktvonline.site/en/movie-popular" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
-                    <img src="https://images.unsplash.com/photo-1620145648299-f926ac0a9470?q=80&w=800" alt="Action movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=4K+TV';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">4k tv online</h3></div>
-                </a>
-                <a href="https://www.hydraflix.vip/home/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">N</span>
-                    <img src="https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=800" alt="Fantasy movie poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Hydraflix';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Hydraflix</h3></div>
-                </a>
-                
-                <!-- New Movie Site Cards -->
-                <a href="https://pstream.org/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?q=80&w=800" alt="Movie streaming poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Pstream';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Pstream</h3></div>
-                </a>
-                 <a href="https://www.cineby.app/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800" alt="Cinema poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Cineby';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Cineby</h3></div>
-                </a>
-                <a href="https://www.fmovies.cat/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=800" alt="Movies collection poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Fmovies';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Fmovies</h3></div>
-                </a>
-                <a href="https://xprime.tv/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=800" alt="TV screen poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Xprime';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Xprime</h3></div>
-                </a>
-                 <a href="https://veloratv.ru/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=800" alt="Abstract TV poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=VeloraTV';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">VeloraTV</h3></div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Live Section -->
-        <section class="mb-10">
-            <h2 class="text-3xl font-bold text-white mb-6 px-4 sm:px-8 md:px-16">Live</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4 sm:px-8 md:px-16">
-                <a href="https://int.klcis.cc/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f82d72?q=80&w=800" alt="Live TV poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=KLCIS';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">KLCIS</h3></div>
-                </a>
-                <a href="https://ustream.to" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1522889926228-ca5ba622c825?q=80&w=800" alt="Live stream poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Ustream';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Ustream</h3></div>
-                </a>
-                <a href="https://thetvapp.to/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1611181654522-3e21a3b4354a?q=80&w=800" alt="TV App poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=TheTVApp';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">TheTVApp</h3></div>
-                </a>
-                <a href="https://tv.garden/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1460881264333-2b9b452a65a4?q=80&w=800" alt="TV Garden poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=TV+Garden';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">TV Garden</h3></div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Live Sports Section -->
-        <section class="mb-10">
-            <h2 class="text-3xl font-bold text-white mb-6 px-4 sm:px-8 md:px-16">Live Sports</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4 sm:px-8 md:px-16">
-                <a href="https://watchsports.to/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800" alt="Soccer match poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=WatchSports';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">WatchSports</h3></div>
-                </a>
-                <a href="https://sportyhunter.com/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=800" alt="Football players poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=SportyHunter';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">SportyHunter</h3></div>
-                </a>
-                 <a href="https://streamed.su/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1543351368-3d6a4a93332f?q=80&w=800" alt="Basketball game poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Streamed';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Streamed</h3></div>
-                </a>
-                <a href="https://www.rbtv77.kaufen/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800" alt="Athlete running poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=RBTV77';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">RBTV77</h3></div>
-                </a>
-                <a href="https://www.viprow.nu/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1487466365202-1afdb86c764e?q=80&w=800" alt="Stadium lights poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Viprow';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Viprow</h3></div>
-                </a>
-                <a href="https://sport-tv.live/" target="_blank" class="block relative group rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1552667466-07770ae110d0?q=80&w=800" alt="Live sports TV screen poster" class="w-full h-full poster-img" onerror="this.onerror=null;this.src='https://placehold.co/200x300/141414/E5E5E5?text=Sport-TV';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"><h3 class="text-white text-lg font-semibold">Sport-TV Live</h3></div>
-                </a>
-            </div>
-        </section>
+    <main class="p-4">
+        <div class="w-full max-w-6xl mx-auto main-container">
+            <section id="main-library">
+                <h1 class="text-4xl font-bold mb-2 gradient-text">Streaming Library</h1>
+                <p class="mb-8">Your curated directory of the best places to watch online.</p>
+                <div id="site-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- Main library buttons will be populated by JS -->
+                </div>
+            </section>
+            <section id="api-frontends" class="mt-12">
+                <h2 class="text-3xl font-bold mb-2 gradient-text">API Frontends</h2>
+                <p class="mb-8">Interfaces for various streaming APIs. Sources may vary.</p>
+                <div id="api-frontend-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- API frontend buttons will be populated by JS -->
+                </div>
+            </section>
+        </div>
     </main>
+    
+    <footer class="text-center p-6 text-xs">
+        &copy; 2025 Courselink. All Rights Reserved. To get in touch email: contact@courselink.org
+    </footer>
 
+    <script>
+        const sitesData = [
+            // Main Library - Consolidated List
+            { category: 'library', name: 'Cineby / Fmovies+', url: 'https://www.cineby.app/' },
+            { category: 'library', name: 'XPrime', url: 'https://xprime.tv/' },
+            { category: 'library', name: 'VeloraTV / 456movie', url: 'https://veloratv.ru/' },
+            { category: 'library', name: 'SpenFlix', url: 'https://watch.spencerdevs.xyz/' },
+            { category: 'library', name: 'Rive / CorsFlix', url: 'https://rivestream.org/' },
+            { category: 'library', name: 'FlickyStream', url: 'https://flickystream.net' },
+            { category: 'library', name: '1Shows / RgShows', url: 'https://www.1shows.ru/' },
+            { category: 'library', name: 'Cinegram', url: 'https://cinegram.net/' },
+            { category: 'library', name: 'Netplay', url: 'https://netplayz.live/' },
+            { category: 'library', name: 'PopcornMovies', url: 'https://popcornmovies.org/' },
+            { category: 'library', name: 'Vidjoy', url: 'https://vidjoy.pro/' },
+            { category: 'library', name: 'Smashystream', url: 'https://smashystream.xyz/' },
+            { category: 'library', name: 'StreamM4u', url: 'https://streamm4u.com.co/' },
+            { category: 'library', name: 'CineGo', url: 'https://cinego.co/' },
+            { category: 'library', name: 'BFLIX', url: 'https://bflix.sh/' },
+            { category: 'library', name: 'PrimeWire', url: 'https://www.primewire.mov/' },
+            { category: 'library', name: 'SoaPy', url: 'https://soapy.to/' },
+            { category: 'library', name: 'ProjectFreeTV', url: 'https://projectfreetv.sx/' },
+            { category: 'library', name: 'Downloads-Anymovies', url: 'https://www.downloads-anymovies.co/' },
+            { category: 'library', name: 'Streaming CSE', url: 'https://cse.google.com/cse?cx=006516753008110874046:cfdhwy9o57g##gsc.tab=0' },
+            { category: 'library', name: 'Boredflix', url: 'https://boredflix.com/' },
+            { category: 'library', name: 'Tapemotion', url: 'https://www.tapemotion.com/en' },
+            { category: 'library', name: '4k tv online', url: 'http://4ktvonline.site/en/movie-popular' },
+            { category: 'library', name: 'Hydraflix', url: 'https://www.hydraflix.vip/home/' },
+            { category: 'library', name: 'Pstream.org', url: 'https://pstream.org/' },
+            { category: 'library', name: 'Fmovies.cat', url: 'https://www.fmovies.cat/' },
+
+            // API Frontends - Consolidated List
+            { category: 'frontend', name: 'P-Stream', url: 'https://pstream.mov/' },
+            { category: 'frontend', name: 'Hexa', url: 'https://hexa.watch/' },
+            { category: 'frontend', name: 'BEECH / Mocine', url: 'https://beech.watch/' },
+            { category: 'frontend', name: 'CinemaOS', url: 'https://cinemaos.live/' },
+            { category: 'frontend', name: 'Vidbox', url: 'https://vidbox.to/' },
+            { category: 'frontend', name: 'Willow', url: 'https://willow.arlen.icu/' },
+            { category: 'frontend', name: 'Primeshows', url: 'https://www.primeshows.live/' },
+            { category: 'frontend', name: 'VLOP', url: 'https://www.vlop.fun/' },
+            { category: 'frontend', name: 'Cinezo', url: 'https://www.cinezo.net/' },
+            { category: 'frontend', name: 'Mapple.tv', url: 'https://mapple.tv/' },
+            { category: 'frontend', name: 'MovieMaze', url: 'https://moviemaze.cc/' },
+            { category: 'frontend', name: 'Nunflix', url: 'https://nunflix.org/' },
+            { category: 'frontend', name: 'Hopfly', url: 'https://watch.hopfly.site/' },
+            { category: 'frontend', name: 'HydraHD', url: 'https://hydrahd.sh/' },
+            { category: 'frontend', name: 'Maxflix', url: 'https://maxflix.top/' },
+            { category: 'frontend', name: '7Xtream', url: 'https://movies.7xtream.com/' },
+            { category: 'frontend', name: 'AlienFlix', url: 'https://alienflix.net/' },
+            { category: 'frontend', name: 'Redflix', url: 'https://redflix.co/' },
+            { category: 'frontend', name: 'Purplix', url: 'https://neoxa.transdev.pw/' },
+            { category: 'frontend', name: 'Wooflix', url: 'https://www.wooflixtv.co/' },
+            { category: 'frontend', name: 'Arabflix', url: 'https://www.arabiflix.com/' },
+            { category: 'frontend', name: 'KaitoVault', url: 'https://www.kaitovault.com/' },
+            { category: 'frontend', name: 'Yampi', url: 'https://yampi.live/' },
+            { category: 'frontend', name: 'M-Zone', url: 'https://www.m-zone.org/' },
+            { category: 'frontend', name: 'Lekuluent', url: 'https://lekuluent.et/' },
+            { category: 'frontend', name: 'MoviePluto', url: 'https://moviepluto.fun/' },
+            { category: 'frontend', name: 'Cinema Deck', url: 'https://cinemadeck.com/' },
+            { category: 'frontend', name: 'Flicker', url: 'https://flickermini.pages.dev/' },
+            { category: 'frontend', name: 'Altair / Nova', url: 'https://altair.mollusk.top/' },
+            { category: 'frontend', name: 'Autoembed', url: 'https://watch.autoembed.cc/' },
+            { category: 'frontend', name: 'Ask4Movies', url: 'https://ask4movie.app/' },
+            { category: 'frontend', name: 'Novafork', url: 'https://novafork.cc/' },
+            { category: 'frontend', name: 'PlayIMDb', url: 'https://www.playimdb.com/' }
+        ];
+
+        const siteGrid = document.getElementById('site-grid');
+        const apiFrontendGrid = document.getElementById('api-frontend-grid');
+
+        // --- THEME TOGGLE ---
+        const themeToggle = document.getElementById('checkbox');
+        
+        const themeCheck = () => {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeToggle.checked = true;
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggle.checked = false;
+            }
+        };
+
+        themeToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+
+        // --- SITE RENDERING ---
+        const renderSites = (sites, container) => {
+            container.innerHTML = '';
+            sites.forEach(site => {
+                const card = `
+                <a href="${site.url}" target="_blank" class="site-button rounded-lg p-3 text-sm font-semibold">
+                    ${site.name}
+                </a>`;
+                container.innerHTML += card;
+            });
+        };
+        
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            themeCheck();
+            renderSites(sitesData.filter(s => s.category === 'library'), siteGrid);
+            renderSites(sitesData.filter(s => s.category === 'frontend'), apiFrontendGrid);
+        });
+
+    </script>
 </body>
 </html>
