@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courselink - The Streaming Library</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,26 +19,28 @@
             --bg-color: #f4f5f7;
             --text-color: #18181b;
             --text-color-muted: #71717a;
-            --text-highlight: #007BFF; /* More blue */
+            --text-highlight: #007BFF;
             --text-gradient-stop: #e73c7e;
             --card-bg: rgba(255, 255, 255, 0.6);
             --card-border: rgba(228, 228, 231, 0.8);
             --nav-bg: rgba(255, 255, 255, 0.5);
             --button-bg: rgba(228, 228, 231, 0.5);
             --button-hover-bg: rgba(228, 228, 231, 0.8);
+            --star-color: #fbbf24; /* amber-400 */
         }
 
         html.dark {
             --bg-color: #111113;
             --text-color: #f4f4f5;
             --text-color-muted: #a1a1aa;
-            --text-highlight: #3399FF; /* More blue */
+            --text-highlight: #3399FF;
             --text-gradient-stop: #ee7752;
             --card-bg: rgba(24, 24, 27, 0.4);
             --card-border: rgba(63, 63, 70, 0.7);
             --nav-bg: rgba(24, 24, 27, 0.4);
             --button-bg: rgba(63, 63, 70, 0.4);
             --button-hover-bg: rgba(63, 63, 70, 0.7);
+            --star-color: #fcd34d; /* amber-300 */
         }
 
         /* Animated Gradient Background */
@@ -89,7 +94,10 @@
             color: transparent;
         }
         
-        /* New Site Button Styling */
+        /* Site Button Styling */
+        .site-button-wrapper {
+            position: relative;
+        }
         .site-button {
             background-color: var(--button-bg);
             border: 1px solid var(--card-border);
@@ -99,76 +107,48 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            width: 100%;
             min-height: 80px;
+            padding-right: 2.5rem; /* Space for the star */
         }
         .site-button:hover {
             background-color: var(--button-hover-bg);
             transform: translateY(-2px);
         }
+        .favorite-star {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            cursor: pointer;
+            color: var(--text-color-muted);
+            font-size: 1.25rem;
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .favorite-star.favorited {
+            color: var(--star-color);
+            transform: scale(1.1);
+        }
+        .favorite-star:hover {
+            transform: scale(1.2);
+        }
         
         /* Theme Toggle Slider */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-        }
-        .theme-switch {
-            display: inline-block;
-            height: 24px;
-            position: relative;
-            width: 44px;
-        }
-        .theme-switch input {
-            display:none;
-        }
-        .slider {
-            background-color: var(--button-bg);
-            border: 1px solid var(--card-border);
-            bottom: 0;
-            cursor: pointer;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: .4s;
-        }
-        .slider:before {
-            background-color: var(--text-color-muted);
-            bottom: 3px;
-            content: "";
-            height: 16px;
-            left: 4px;
-            position: absolute;
-            transition: .4s;
-            width: 16px;
-        }
-        input:checked + .slider {
-            background-color: var(--button-hover-bg);
-        }
-        input:checked + .slider:before {
-            transform: translateX(18px);
-            background-color: var(--text-color);
-        }
-        .slider.round {
-            border-radius: 34px;
-        }
-        .slider.round:before {
-            border-radius: 50%;
-        }
-
-        /* Make slider more visible in light mode */
-        html:not(.dark) .slider {
-            background-color: rgba(209, 213, 219, 0.6); /* gray-300 with opacity */
-            border-color: rgba(156, 163, 175, 0.8); /* gray-400 with opacity */
-        }
-
-        html:not(.dark) .slider:before {
-            background-color: #4b5563; /* gray-600 */
-        }
-
+        .theme-switch-wrapper { display: flex; align-items: center; }
+        .theme-switch { display: inline-block; height: 24px; position: relative; width: 44px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: var(--button-bg); border: 1px solid var(--card-border); bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
+        .slider:before { background-color: var(--text-color-muted); bottom: 3px; content: ""; height: 16px; left: 4px; position: absolute; transition: .4s; width: 16px; }
+        input:checked + .slider { background-color: var(--button-hover-bg); }
+        input:checked + .slider:before { transform: translateX(18px); background-color: var(--text-color); }
+        .slider.round { border-radius: 34px; }
+        .slider.round:before { border-radius: 50%; }
+        html:not(.dark) .slider { background-color: rgba(209, 213, 219, 0.6); border-color: rgba(156, 163, 175, 0.8); }
+        html:not(.dark) .slider:before { background-color: #4b5563; }
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- Navbar -->
     <nav class="fixed w-full top-0 left-0 z-30 px-4 sm:px-8 md:px-16">
         <div class="flex items-center justify-between h-20">
             <a href="https://courselink.org" class="brand-logo text-xl font-bold flex items-center gap-2">
@@ -184,19 +164,32 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="p-4">
         <div class="w-full max-w-6xl mx-auto main-container">
+            <section id="favorites" class="mb-12">
+                <h2 class="text-3xl font-bold mb-2 gradient-text">Favorites</h2>
+                <p class="mb-8">Your starred sites for quick access.</p>
+                <div id="favorites-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- Favorite buttons will be populated by JS -->
+                </div>
+                 <p id="no-favorites" class="text-center italic">You haven't favorited any sites yet.</p>
+            </section>
+            
             <section id="main-library">
                 <h1 class="text-4xl font-bold mb-2 gradient-text">Streaming Library</h1>
                 <p class="mb-8">Your curated directory of the best places to watch online.</p>
                 <div id="site-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    </div>
+                    <!-- Main library buttons will be populated by JS -->
+                </div>
             </section>
+            
             <section id="api-frontends" class="mt-12">
                 <h2 class="text-3xl font-bold mb-2 gradient-text">API Frontends</h2>
                 <p class="mb-8">Interfaces for various streaming APIs. Sources may vary.</p>
                 <div id="api-frontend-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    </div>
+                    <!-- API frontend buttons will be populated by JS -->
+                </div>
             </section>
         </div>
     </main>
@@ -262,7 +255,6 @@
             { category: 'library', name: 'Downloads-Anymovies', url: 'https://www.downloads-anymovies.co/' },
             { category: 'library', name: 'Streaming CSE', url: 'https://cse.google.com/cse?cx=006516753008110874046:cfdhwy9o57g##gsc.tab=0' },
             { category: 'library', name: 'Boredflix', url: 'https://boredflix.com/' },
-
             // API Frontends - Consolidated List
             { category: 'frontend', name: 'P-Stream', url: 'https://pstream.mov/' },
             { category: 'frontend', name: 'Hexa', url: 'https://hexa.watch/' },
@@ -299,52 +291,105 @@
             { category: 'frontend', name: 'PlayIMDb', url: 'https://www.playimdb.com/' }
         ];
 
-        const siteGrid = document.getElementById('site-grid');
-        const apiFrontendGrid = document.getElementById('api-frontend-grid');
-
-        // --- THEME TOGGLE ---
-        const themeToggle = document.getElementById('checkbox');
-        
-        const themeCheck = () => {
-            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-                themeToggle.checked = true;
-            } else {
-                document.documentElement.classList.remove('dark');
-                themeToggle.checked = false;
-            }
-        };
-
-        themeToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
-
-        // --- SITE RENDERING ---
-        const renderSites = (sites, container) => {
-            container.innerHTML = '';
-            sites.forEach(site => {
-                const card = `
-                <a href="${site.url}" target="_blank" class="site-button rounded-lg p-3 text-sm font-semibold">
-                    ${site.name}
-                </a>`;
-                container.innerHTML += card;
-            });
-        };
-        
-        // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
-            themeCheck();
-            renderSites(sitesData.filter(s => s.category === 'library'), siteGrid);
-            renderSites(sitesData.filter(s => s.category === 'frontend'), apiFrontendGrid);
-        });
+            const siteGrid = document.getElementById('site-grid');
+            const apiFrontendGrid = document.getElementById('api-frontend-grid');
+            const favoritesGrid = document.getElementById('favorites-grid');
+            const noFavoritesMessage = document.getElementById('no-favorites');
+            const themeToggle = document.getElementById('checkbox');
 
+            // --- FAVORITES LOGIC ---
+            const getFavorites = () => {
+                const favorites = localStorage.getItem('courselinkFavorites');
+                return favorites ? JSON.parse(favorites) : [];
+            };
+
+            const saveFavorites = (favorites) => {
+                localStorage.setItem('courselinkFavorites', JSON.stringify(favorites));
+            };
+
+            const toggleFavorite = (siteUrl) => {
+                let favorites = getFavorites();
+                if (favorites.includes(siteUrl)) {
+                    favorites = favorites.filter(url => url !== siteUrl);
+                } else {
+                    favorites.push(siteUrl);
+                }
+                saveFavorites(favorites);
+                renderAll(); // Re-render everything to reflect the change
+            };
+
+            // --- THEME TOGGLE ---
+            const themeCheck = () => {
+                if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    themeToggle.checked = true;
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeToggle.checked = false;
+                }
+            };
+
+            themeToggle.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // --- SITE RENDERING ---
+            const renderSites = (sites, container) => {
+                container.innerHTML = '';
+                const favorites = getFavorites();
+                sites.forEach(site => {
+                    const isFavorited = favorites.includes(site.url);
+                    const card = `
+                    <div class="site-button-wrapper">
+                        <a href="${site.url}" target="_blank" class="site-button rounded-lg p-3 text-sm font-semibold">
+                            ${site.name}
+                        </a>
+                        <i class="favorite-star fas fa-star ${isFavorited ? 'favorited' : ''}" data-url="${site.url}"></i>
+                    </div>`;
+                    container.innerHTML += card;
+                });
+            };
+            
+            const renderFavorites = () => {
+                const favorites = getFavorites();
+                const favoriteSites = sitesData.filter(site => favorites.includes(site.url));
+                
+                if (favoriteSites.length > 0) {
+                    noFavoritesMessage.style.display = 'none';
+                    favoritesGrid.style.display = 'grid';
+                    renderSites(favoriteSites, favoritesGrid);
+                } else {
+                    favoritesGrid.innerHTML = '';
+                    favoritesGrid.style.display = 'none';
+                    noFavoritesMessage.style.display = 'block';
+                }
+            };
+            
+            // --- EVENT LISTENERS for Stars ---
+            document.body.addEventListener('click', function(event) {
+                if (event.target.classList.contains('favorite-star')) {
+                    const siteUrl = event.target.getAttribute('data-url');
+                    toggleFavorite(siteUrl);
+                }
+            });
+
+            // --- INITIALIZATION ---
+            const renderAll = () => {
+                renderFavorites();
+                renderSites(sitesData.filter(s => s.category === 'library'), siteGrid);
+                renderSites(sitesData.filter(s => s.category === 'frontend'), apiFrontendGrid);
+            };
+            
+            themeCheck();
+            renderAll();
+        });
     </script>
 </body>
 </html>
