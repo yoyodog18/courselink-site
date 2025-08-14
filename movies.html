@@ -157,6 +157,16 @@
             border-radius: 50%;
         }
 
+        /* Make slider more visible in light mode */
+        html:not(.dark) .slider {
+            background-color: rgba(209, 213, 219, 0.6); /* gray-300 with opacity */
+            border-color: rgba(156, 163, 175, 0.8); /* gray-400 with opacity */
+        }
+
+        html:not(.dark) .slider:before {
+            background-color: #4b5563; /* gray-600 */
+        }
+
     </style>
 </head>
 <body class="antialiased">
