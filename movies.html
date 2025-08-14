@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courselink - The Streaming Library</title>
-    <!-- Tailwind CSS -->
+    <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -171,10 +169,9 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navbar -->
     <nav class="fixed w-full top-0 left-0 z-30 px-4 sm:px-8 md:px-16">
         <div class="flex items-center justify-between h-20">
-            <a href="#" class="brand-logo text-xl font-bold flex items-center gap-2">
+            <a href="https://courselink.org" class="brand-logo text-xl font-bold flex items-center gap-2">
                 <i class="fas fa-bolt"></i>
                 <span>Courselink</span>
             </a>
@@ -187,22 +184,19 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="p-4">
         <div class="w-full max-w-6xl mx-auto main-container">
             <section id="main-library">
                 <h1 class="text-4xl font-bold mb-2 gradient-text">Streaming Library</h1>
                 <p class="mb-8">Your curated directory of the best places to watch online.</p>
                 <div id="site-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    <!-- Main library buttons will be populated by JS -->
-                </div>
+                    </div>
             </section>
             <section id="api-frontends" class="mt-12">
                 <h2 class="text-3xl font-bold mb-2 gradient-text">API Frontends</h2>
                 <p class="mb-8">Interfaces for various streaming APIs. Sources may vary.</p>
                 <div id="api-frontend-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    <!-- API frontend buttons will be populated by JS -->
-                </div>
+                    </div>
             </section>
         </div>
     </main>
@@ -212,99 +206,98 @@
     </footer>
 
     <script>
-    const sitesData = [
-        // Main Library - Consolidated List
-        { category: 'library', name: 'Tapemotion', url: 'https://www.tapemotion.com/en' },
-        { category: 'library', name: '4k tv online', url: 'http://4ktvonline.site/en/movie-popular' },
-        { category: 'library', name: 'Hydraflix', url: 'https://www.hydraflix.vip/home/' },
-        { category: 'library', name: 'Pstream.org', url: 'https://pstream.org/' },
-        { category: 'library', name: 'Fmovies.cat', url: 'https://www.fmovies.cat/' },
-        { category: 'library', name: 'pstream', url: 'https://pstream.mov' },
-        { category: 'library', name: 'justchill', url: 'https://justchill.app' },
-        { category: 'library', name: 'streamwatch', url: 'https://streamwatch.online' },
-        { category: 'library', name: 'streamerflix', url: 'https://streamerflix.xyz' },
-        { category: 'library', name: 'sudo-flix', url: 'https://sudo-flix.nl' },
-        { category: 'library', name: 'film.kace', url: 'https://film.kace.dev' },
-        { category: 'library', name: 'Vidstream', url: 'https://vidstream.to/home' },
-        { category: 'library', name: 'mov4o', url: 'https://mov4o.com/' },
-        { category: 'library', name: 'vipstream', url: 'https://vipstream.tv/' },
-        { category: 'library', name: 'hdtodayz', url: 'https://hdtodayz.to/home' },
-        { category: 'library', name: 'Cineby', url: 'https://www.cineby.ru/' },
-        { category: 'library', name: 'Fmovies+', url: 'https://www.fmovies.cat/' },
-        { category: 'library', name: '456movies', url: 'https://456movie.com/' },
-        { category: 'library', name: 'MovieMaze', url: 'https://freek.to' },
-        { category: 'library', name: 'MokMobi', url: 'https://mokmobi.ovh/' },
-        { category: 'library', name: 'Rive', url: 'https://rivestream.live' },
-        { category: 'library', name: 'BEECH', url: 'https://beech.watch/' },
-        { category: 'library', name: 'Mocine', url: 'https://mocine.cam/' },
-        { category: 'library', name: 'movie-web', url: 'https://erynith.github.io/movie-web-instances/' },
-        { category: 'library', name: 'NetPlay', url: 'https://netplayz.ru/' },
-        { category: 'library', name: 'Nunflix', url: 'https://nunflix.org/' },
-        { category: 'library', name: '7Xtream', url: 'https://movies.7xtream.com/' },
-        { category: 'library', name: 'Kipstream', url: 'https://kipstream.lol/' },
-        { category: 'library', name: 'RidoMovies', url: 'https://ridomovies.tv/' },
-        { category: 'library', name: 'Streamflix', url: 'https://watch.streamflix.one/' },
-        { category: 'library', name: 'CinemaUnlocked', url: 'https://cinemaunlocked.com/home/' },
-        { category: 'library', name: 'Donkey', url: 'https://donkey.to/home' },
-        { category: 'library', name: 'YoYo Movies', url: 'https://yoyomovies.net/' },
-        { category: 'library', name: 'Cineby / Fmovies+', url: 'https://www.cineby.app/' },
-        { category: 'library', name: 'XPrime', url: 'https://xprime.tv/' },
-        { category: 'library', name: 'VeloraTV / 456movie', url: 'https://veloratv.ru/' },
-        { category: 'library', name: 'SpenFlix', url: 'https://watch.spencerdevs.xyz/' },
-        { category: 'library', name: 'Rive / CorsFlix', url: 'https://rivestream.org/' },
-        { category: 'library', name: 'FlickyStream', url: 'https://flickystream.net' },
-        { category: 'library', name: '1Shows / RgShows', url: 'https://www.1shows.ru/' },
-        { category: 'library', name: 'Cinegram', url: 'https://cinegram.net/' },
-        { category: 'library', name: 'Netplay', url: 'https://netplayz.live/' },
-        { category: 'library', name: 'PopcornMovies', url: 'https://popcornmovies.org/' },
-        { category: 'library', name: 'Vidjoy', url: 'https://vidjoy.pro/' },
-        { category: 'library', name: 'Smashystream', url: 'https://smashystream.xyz/' },
-        { category: 'library', name: 'StreamM4u', url: 'https://streamm4u.com.co/' },
-        { category: 'library', name: 'CineGo', url: 'https://cinego.co/' },
-        { category: 'library', name: 'BFLIX', url: 'https://bflix.sh/' },
-        { category: 'library', name: 'PrimeWire', url: 'https://www.primewire.mov/' },
-        { category: 'library', name: 'SoaPy', url: 'https://soapy.to/' },
-        { category: 'library', name: 'ProjectFreeTV', url: 'https://projectfreetv.sx/' },
-        { category: 'library', name: 'Downloads-Anymovies', url: 'https://www.downloads-anymovies.co/' },
-        { category: 'library', name: 'Streaming CSE', url: 'https://cse.google.com/cse?cx=006516753008110874046:cfdhwy9o57g##gsc.tab=0' },
-        { category: 'library', name: 'Boredflix', url: 'https://boredflix.com/' },
+        const sitesData = [
+            // Main Library - Consolidated List
+            { category: 'library', name: 'Tapemotion', url: 'https://www.tapemotion.com/en' },
+            { category: 'library', name: '4k tv online', url: 'http://4ktvonline.site/en/movie-popular' },
+            { category: 'library', name: 'Hydraflix', url: 'https://www.hydraflix.vip/home/' },
+            { category: 'library', name: 'Pstream.org', url: 'https://pstream.org/' },
+            { category: 'library', name: 'Fmovies.cat', url: 'https://www.fmovies.cat/' },
+            { category: 'library', name: 'pstream', url: 'https://pstream.mov' },
+            { category: 'library', name: 'justchill', url: 'https://justchill.app' },
+            { category: 'library', name: 'streamwatch', url: 'https://streamwatch.online' },
+            { category: 'library', name: 'streamerflix', url: 'https://streamerflix.xyz' },
+            { category: 'library', name: 'sudo-flix', url: 'https://sudo-flix.nl' },
+            { category: 'library', name: 'film.kace', url: 'https://film.kace.dev' },
+            { category: 'library', name: 'Vidstream', url: 'https://vidstream.to/home' },
+            { category: 'library', name: 'mov4o', url: 'https://mov4o.com/' },
+            { category: 'library', name: 'vipstream', url: 'https://vipstream.tv/' },
+            { category: 'library', name: 'hdtodayz', url: 'https://hdtodayz.to/home' },
+            { category: 'library', name: 'Cineby', url: 'https://www.cineby.ru/' },
+            { category: 'library', name: 'Fmovies+', url: 'https://www.fmovies.cat/' },
+            { category: 'library', name: '456movies', url: 'https://456movie.com/' },
+            { category: 'library', name: 'MovieMaze', url: 'https://freek.to' },
+            { category: 'library', name: 'MokMobi', url: 'https://mokmobi.ovh/' },
+            { category: 'library', name: 'Rive', url: 'https://rivestream.live' },
+            { category: 'library', name: 'BEECH', url: 'https://beech.watch/' },
+            { category: 'library', name: 'Mocine', url: 'https://mocine.cam/' },
+            { category: 'library', name: 'movie-web', url: 'https://erynith.github.io/movie-web-instances/' },
+            { category: 'library', name: 'NetPlay', url: 'https://netplayz.ru/' },
+            { category: 'library', name: 'Nunflix', url: 'https://nunflix.org/' },
+            { category: 'library', name: '7Xtream', url: 'https://movies.7xtream.com/' },
+            { category: 'library', name: 'Kipstream', url: 'https://kipstream.lol/' },
+            { category: 'library', name: 'RidoMovies', url: 'https://ridomovies.tv/' },
+            { category: 'library', name: 'Streamflix', url: 'https://watch.streamflix.one/' },
+            { category: 'library', name: 'CinemaUnlocked', url: 'https://cinemaunlocked.com/home/' },
+            { category: 'library', name: 'Donkey', url: 'https://donkey.to/home' },
+            { category: 'library', name: 'YoYo Movies', url: 'https://yoyomovies.net/' },
+            { category: 'library', name: 'Cineby / Fmovies+', url: 'https://www.cineby.app/' },
+            { category: 'library', name: 'XPrime', url: 'https://xprime.tv/' },
+            { category: 'library', name: 'VeloraTV / 456movie', url: 'https://veloratv.ru/' },
+            { category: 'library', name: 'SpenFlix', url: 'https://watch.spencerdevs.xyz/' },
+            { category: 'library', name: 'Rive / CorsFlix', url: 'https://rivestream.org/' },
+            { category: 'library', name: 'FlickyStream', url: 'https://flickystream.net' },
+            { category: 'library', name: '1Shows / RgShows', url: 'https://www.1shows.ru/' },
+            { category: 'library', name: 'Cinegram', url: 'https://cinegram.net/' },
+            { category: 'library', name: 'Netplay', url: 'https://netplayz.live/' },
+            { category: 'library', name: 'PopcornMovies', url: 'https://popcornmovies.org/' },
+            { category: 'library', name: 'Vidjoy', url: 'https://vidjoy.pro/' },
+            { category: 'library', name: 'Smashystream', url: 'https://smashystream.xyz/' },
+            { category: 'library', name: 'StreamM4u', url: 'https://streamm4u.com.co/' },
+            { category: 'library', name: 'CineGo', url: 'https://cinego.co/' },
+            { category: 'library', name: 'BFLIX', url: 'https://bflix.sh/' },
+            { category: 'library', name: 'PrimeWire', url: 'https://www.primewire.mov/' },
+            { category: 'library', name: 'SoaPy', url: 'https://soapy.to/' },
+            { category: 'library', name: 'ProjectFreeTV', url: 'https://projectfreetv.sx/' },
+            { category: 'library', name: 'Downloads-Anymovies', url: 'https://www.downloads-anymovies.co/' },
+            { category: 'library', name: 'Streaming CSE', url: 'https://cse.google.com/cse?cx=006516753008110874046:cfdhwy9o57g##gsc.tab=0' },
+            { category: 'library', name: 'Boredflix', url: 'https://boredflix.com/' },
 
-        // API Frontends - Consolidated List
-        { category: 'frontend', name: 'P-Stream', url: 'https://pstream.mov/' },
-        { category: 'frontend', name: 'Hexa', url: 'https://hexa.watch/' },
-        { category: 'frontend', name: 'BEECH / Mocine', url: 'https://beech.watch/' },
-        { category: 'frontend', name: 'CinemaOS', url: 'https://cinemaos.live/' },
-        { category: 'frontend', name: 'Vidbox', url: 'https://vidbox.to/' },
-        { category: 'frontend', name: 'Willow', url: 'https://willow.arlen.icu/' },
-        { category: 'frontend', name: 'Primeshows', url: 'https://www.primeshows.live/' },
-        { category: 'frontend', name: 'VLOP', url: 'https://www.vlop.fun/' },
-        { category: 'frontend', name: 'Cinezo', url: 'https://www.cinezo.net/' },
-        { category: 'frontend', name: 'Mapple.tv', url: 'https://mapple.tv/' },
-        { category: 'frontend', name: 'MovieMaze', url: 'https://moviemaze.cc/' },
-        { category: 'frontend', name: 'Nunflix', url: 'https://nunflix.org/' },
-        { category: 'frontend', name: 'Hopfly', url: 'https://watch.hopfly.site/' },
-        { category: 'frontend', name: 'HydraHD', url: 'https://hydrahd.sh/' },
-        { category: 'frontend', name: 'Maxflix', url: 'https://maxflix.top/' },
-        { category: 'frontend', name: '7Xtream', url: 'https://movies.7xtream.com/' },
-        { category: 'frontend', name: 'AlienFlix', url: 'https://alienflix.net/' },
-        { category: 'frontend', name: 'Redflix', url: 'https://redflix.co/' },
-        { category: 'frontend', name: 'Purplix', url: 'https://neoxa.transdev.pw/' },
-        { category: 'frontend', name: 'Wooflix', url: 'https://www.wooflixtv.co/' },
-        { category: 'frontend', name: 'Arabflix', url: 'https://www.arabiflix.com/' },
-        { category: 'frontend', name: 'KaitoVault', url: 'https://www.kaitovault.com/' },
-        { category: 'frontend', name: 'Yampi', url: 'https://yampi.live/' },
-        { category: 'frontend', name: 'M-Zone', url: 'https://www.m-zone.org/' },
-        { category: 'frontend', name: 'Lekuluent', url: 'https://lekuluent.et/' },
-        { category: 'frontend', name: 'MoviePluto', url: 'https://moviepluto.fun/' },
-        { category: 'frontend', name: 'Cinema Deck', url: 'https://cinemadeck.com/' },
-        { category: 'frontend', name: 'Flicker', url: 'https://flickermini.pages.dev/' },
-        { category: 'frontend', name: 'Altair / Nova', url: 'https://altair.mollusk.top/' },
-        { category: 'frontend', name: 'Autoembed', url: 'https://watch.autoembed.cc/' },
-        { category: 'frontend', name: 'Ask4Movies', url: 'https://ask4movie.app/' },
-        { category: 'frontend', name: 'Novafork', url: 'https://novafork.cc/' },
-        { category: 'frontend', name: 'PlayIMDb', url: 'https://www.playimdb.com/' }
-    ];
-</script>
+            // API Frontends - Consolidated List
+            { category: 'frontend', name: 'P-Stream', url: 'https://pstream.mov/' },
+            { category: 'frontend', name: 'Hexa', url: 'https://hexa.watch/' },
+            { category: 'frontend', name: 'BEECH / Mocine', url: 'https://beech.watch/' },
+            { category: 'frontend', name: 'CinemaOS', url: 'https://cinemaos.live/' },
+            { category: 'frontend', name: 'Vidbox', url: 'https://vidbox.to/' },
+            { category: 'frontend', name: 'Willow', url: 'https://willow.arlen.icu/' },
+            { category: 'frontend', name: 'Primeshows', url: 'https://www.primeshows.live/' },
+            { category: 'frontend', name: 'VLOP', url: 'https://www.vlop.fun/' },
+            { category: 'frontend', name: 'Cinezo', url: 'https://www.cinezo.net/' },
+            { category: 'frontend', name: 'Mapple.tv', url: 'https://mapple.tv/' },
+            { category: 'frontend', name: 'MovieMaze', url: 'https://moviemaze.cc/' },
+            { category: 'frontend', name: 'Nunflix', url: 'https://nunflix.org/' },
+            { category: 'frontend', name: 'Hopfly', url: 'https://watch.hopfly.site/' },
+            { category: 'frontend', name: 'HydraHD', url: 'https://hydrahd.sh/' },
+            { category: 'frontend', name: 'Maxflix', url: 'https://maxflix.top/' },
+            { category: 'frontend', name: '7Xtream', url: 'https://movies.7xtream.com/' },
+            { category: 'frontend', name: 'AlienFlix', url: 'https://alienflix.net/' },
+            { category: 'frontend', name: 'Redflix', url: 'https://redflix.co/' },
+            { category: 'frontend', name: 'Purplix', url: 'https://neoxa.transdev.pw/' },
+            { category: 'frontend', name: 'Wooflix', url: 'https://www.wooflixtv.co/' },
+            { category: 'frontend', name: 'Arabflix', url: 'https://www.arabiflix.com/' },
+            { category: 'frontend', name: 'KaitoVault', url: 'https://www.kaitovault.com/' },
+            { category: 'frontend', name: 'Yampi', url: 'https://yampi.live/' },
+            { category: 'frontend', name: 'M-Zone', url: 'https://www.m-zone.org/' },
+            { category: 'frontend', name: 'Lekuluent', url: 'https://lekuluent.et/' },
+            { category: 'frontend', name: 'MoviePluto', url: 'https://moviepluto.fun/' },
+            { category: 'frontend', name: 'Cinema Deck', url: 'https://cinemadeck.com/' },
+            { category: 'frontend', name: 'Flicker', url: 'https://flickermini.pages.dev/' },
+            { category: 'frontend', name: 'Altair / Nova', url: 'https://altair.mollusk.top/' },
+            { category: 'frontend', name: 'Autoembed', url: 'https://watch.autoembed.cc/' },
+            { category: 'frontend', name: 'Ask4Movies', url: 'https://ask4movie.app/' },
+            { category: 'frontend', name: 'Novafork', url: 'https://novafork.cc/' },
+            { category: 'frontend', name: 'PlayIMDb', url: 'https://www.playimdb.com/' }
+        ];
 
         const siteGrid = document.getElementById('site-grid');
         const apiFrontendGrid = document.getElementById('api-frontend-grid');
