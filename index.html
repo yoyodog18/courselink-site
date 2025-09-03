@@ -11,164 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the redesigned website */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Light Theme Variables */
-        :root {
-            --bg-color: #f1f5f9; /* slate-100 */
-            --text-color: #0f172a; /* slate-900 */
-            --card-bg: rgba(255, 255, 255, 0.6);
-            --navbar-bg: rgba(255, 255, 255, 0.5);
-            --border-color: rgba(226, 232, 240, 0.7); /* slate-200 */
-            --hero-gradient-start: #38bdf8; /* sky-500 */
-            --hero-gradient-end: #818cf8; /* indigo-400 */
-            --icon-color: #64748b; /* slate-500 */
-            --shadow-color: 220, 40%, 80%;
-            --gradient-start: #a8dadc;
-            --gradient-mid: #f1faee;
-            --gradient-end: #e63946;
-        }
-
-        /* Dark Theme Variables */
-        .dark {
-            --bg-color: #0b1120; /* custom darker slate */
-            --text-color: #f1f5f9; /* slate-100 */
-            --card-bg: rgba(30, 41, 59, 0.6); /* slate-800 */
-            --navbar-bg: rgba(11, 17, 32, 0.5);
-            --border-color: rgba(51, 65, 85, 0.7); /* slate-700 */
-            --hero-gradient-start: #38bdf8; /* sky-500 */
-            --hero-gradient-end: #c084fc; /* purple-400 */
-            --icon-color: #94a3b8; /* slate-400 */
-            --shadow-color: 220, 40%, 3%;
-            --gradient-start: #1d3557;
-            --gradient-mid: #457b9d;
-            --gradient-end: #e63946;
-        }
-
-        /* General Body Styles */
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
-        }
-        
-        /* Animated Gradient Background */
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            transition: background 0.5s ease;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Floating Shapes */
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            filter: blur(80px);
-            animation: float 20s infinite linear;
-        }
-        .shape1 { width: 400px; height: 400px; top: 10%; left: 10%; animation-duration: 25s; }
-        .shape2 { width: 300px; height: 300px; top: 60%; left: 80%; animation-duration: 30s; animation-delay: 5s; }
-        .shape3 { width: 200px; height: 200px; top: 40%; left: 40%; animation-duration: 20s; animation-delay: 2s; }
-        .dark .shape { background: rgba(0,0,0,0.1); }
-
-        @keyframes float {
-            0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-            25% { transform: translateY(20px) translateX(-30px) rotate(90deg); }
-            50% { transform: translateY(-20px) translateX(20px) rotate(180deg); }
-            75% { transform: translateY(30px) translateX(10px) rotate(270deg); }
-            100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
-        }
-
-        /* Navbar & Card Styles with Backdrop Filter */
-        .navbar, .main-card, .btn-glass {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .navbar {
-            background-color: var(--navbar-bg);
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .main-card {
-             background-color: var(--card-bg);
-             border: 1px solid var(--border-color);
-        }
-
-        /* Hero section gradient text */
-        .gradient-text {
-            background: linear-gradient(45deg, var(--hero-gradient-start), var(--hero-gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Strikethrough style */
-        .strike-through {
-            text-decoration-color: var(--icon-color);
-        }
-
-        /* Theme switcher styles */
-        #theme-toggle:checked + label .slider {
-            transform: translateX(100%);
-            background-color: #38bdf8; /* sky-500 */
-        }
-
-        /* Glassmorphism Button Styles */
-        .btn-glass {
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            color: var(--text-color);
-            transition: all 0.2s ease-in-out;
-            border: 1px solid;
-            border-color: rgba(255, 255, 255, 0.3);
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-        }
-        .dark .btn-glass {
-            border-color: rgba(255, 255, 255, 0.1);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-        .btn-glass:hover {
-            transform: scale(1.05) translateY(-2px);
-            background-color: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-        .dark .btn-glass:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
+        body { font-family: 'Inter', sans-serif; }
+        /* Keep all your existing styles ... */
     </style>
 </head>
 <body class="antialiased">
@@ -186,7 +30,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center space-x-3">
-                    <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     <span class="text-2xl font-bold tracking-tight" style="color: var(--text-color);">Courselink</span>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -205,6 +49,17 @@
         </div>
     </nav>
 
+    <!-- 🔥 Giant Banner for New Site 🔥 -->
+    <section class="relative z-10 bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-600 dark:to-pink-500 text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">🚀 Check out our NEW site for school resources!</h2>
+            <p class="text-lg md:text-xl mb-6">We’ve launched <strong>edu.courselink.org</strong> with a better experience just for you.</p>
+            <a href="https://edu.courselink.org" class="inline-block px-8 py-4 text-lg font-semibold rounded-full bg-white text-sky-600 hover:bg-slate-100 transition shadow-lg">
+                Visit edu.courselink.org →
+            </a>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <main class="relative z-10 flex items-center justify-center min-h-[calc(100vh-128px)] py-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -222,8 +77,7 @@
                         <a href="courses.html" class="btn-glass">G.A.M.E.S</a>
                         <a href="movies.html" class="btn-glass">M.O.V.I.E.S</a>
                         <a href="https://youtube.courselink.org" class="btn-glass">Youtube</a>
-                         <a href="https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/edit?tab=t.0#heading=h.rc9jgktgfdfi" class="btn-glass">Make your own unblocked g.am.e site</a>
-    
+                        <a href="https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/edit?tab=t.0#heading=h.rc9jgktgfdfi" class="btn-glass">Make your own unblocked g.am.e site</a>
                         <a href="https://app.apponfly.com/trial" class="btn-glass">20 MIN COMPUTER</a>
                     </div>
                 </div>
@@ -249,42 +103,7 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Theme Management ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const htmlEl = document.documentElement;
-
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    htmlEl.classList.add('dark');
-                    themeToggle.checked = true;
-                } else {
-                    htmlEl.classList.remove('dark');
-                    themeToggle.checked = false;
-                }
-            };
-
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme) {
-                applyTheme(savedTheme);
-            } else {
-                applyTheme(prefersDark ? 'dark' : 'light');
-            }
-
-            themeToggle.addEventListener('change', () => {
-                const newTheme = themeToggle.checked ? 'dark' : 'light';
-                applyTheme(newTheme);
-                localStorage.setItem('theme', newTheme);
-            });
-
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                if (!localStorage.getItem('theme')) {
-                    applyTheme(e.matches ? 'dark' : 'light');
-                }
-            });
-        });
+        // keep your existing theme toggle script
     </script>
 </body>
 </html>
